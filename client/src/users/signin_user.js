@@ -1,0 +1,54 @@
+import React, { Component } from "react";
+import fire from "../config/fire";
+
+class SignIn extends Component {
+
+  state = {
+    email: 'aa@aa.com',
+    password: 'passaa',
+    status_msg: null
+  };
+
+  
+  signin_user(e) {
+
+    e.preventDefault();
+
+    let email = this.state.email,
+    password = this.state.password,
+    that = this;
+
+    fire.auth().signInWithEmailAndPassword(email, password).then(user => {
+      that.setState({status_msg: null});
+    })
+    .catch(function(error) {
+      that.setState({status_msg: error.message});
+    });    
+
+  }
+ 
+  handleEmailChange(e) {
+    this.setState({email: e.target.value});
+  }
+  
+  handlePasswordChange(e) {
+    this.setState({password: e.target.value});
+  }  
+
+  render() {
+    return(
+      <div>
+        <h3>Sign in</h3>
+        { (this.state.status_msg !== null ? 'Error: ' + this.state.status_msg : '') }
+        <form onSubmit={this.signin_user.bind(this)}>
+        <input type="text" name="email" placeholder={this.state.email} onChange={this.handleEmailChange.bind(this)} /><br/>
+        <input type="password" name="password" placeholder={this.state.password} onChange={this.handlePasswordChange.bind(this)}/><br/>
+        <input type="submit" />
+      </form>
+      </div>
+    )
+  }
+
+}
+
+export default SignIn;
