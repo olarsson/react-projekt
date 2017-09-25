@@ -4,32 +4,16 @@ import { BrowserRouter, Link } from 'react-router-dom';
 import Layout from './layout';
 import fire from "./config/fire";
 import routes from './routes';
+import store from './store';
+import {Provider} from "react-redux";
 
-import { createStore } from 'redux'
+import {connect} from 'react-redux';
 
-const user = (state = {logged_in: false}, action) => {
-  switch (action.type) {
-    case 'LOGGED_IN':
-      return {
-        uid: action.uid,
-        email: action.email,
-        logged_in: true
-      }
-    case 'LOGGED_OUT':
-      return {
-        logged_in: false
-      }
-    default:
-      return state
-  }
-}
-
+/*
 export let store = createStore(user,
   +  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+  */
 
-store.subscribe(() =>
-  console.info('state: ' + store.getState().logged_in)
-)
 
 class App extends Component {
 
@@ -40,10 +24,17 @@ class App extends Component {
   componentDidMount() {
     fire.auth().onAuthStateChanged(user => {
       if (user) {
-        store.dispatch({ type: 'LOGGED_IN', user: user.uid, email: user.email })
+        store.dispatch({
+          type: 'LOGGED_IN',
+          user: user.uid,
+          email: user.email
+        })
       } else {
-        store.dispatch({ type: 'LOGGED_OUT' });
+        store.dispatch({
+          type: 'LOGGED_OUT'
+        });
       }
+      //Update view
       this.setState({log: Boolean(user)})
     });  
   }
@@ -64,11 +55,15 @@ class App extends Component {
 
 }
 
+connect(App);
+
 ReactDOM.render(
   <Layout>
     <BrowserRouter>
       <div>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </div>
     </BrowserRouter>
   </Layout>,

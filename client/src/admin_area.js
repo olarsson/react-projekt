@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {store} from './index';
+//import {store} from './index';
 import fire from "./config/fire";
+import store from './store';
 
 function deleteuser(e) {
   
