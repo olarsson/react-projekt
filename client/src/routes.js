@@ -18,20 +18,10 @@ const routes = (
 );
 */
 
-
-const AddPropsToRoute = (WrappedComponent, passedProps) => {
-  return class Route extends Component {
-    render() {
-      let props = Object.assign({}, this.props, passedProps);
-      return <WrappedComponent {...props} />;
-    }
-  };
-};
-
 const routes = (
   
   <Switch>
-    <Route path='/signin' component={AddPropsToRoute(SignIn, this.props)} />
+    <Route path='/signin' component={SignIn} {...this.props} />
     <Route path="/admin" component={AdminArea} {...this.props} />
   </Switch>
 );

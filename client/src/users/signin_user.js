@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import fire from "../config/fire";
 
 /*
@@ -63,4 +64,11 @@ const SignIn = (props) => {
   );
 }
 
-export default SignIn;
+// connect application state to props
+function mapStateToProps(state) {
+  return { loggedin: state.loggedin };
+}
+
+export default connect(mapStateToProps)(SignIn);
+
+//export default SignIn;
