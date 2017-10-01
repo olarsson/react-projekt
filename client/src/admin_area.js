@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 //import {store} from './index';
 import fire from "./config/fire";
-import store from './store';
+//import store from './store';
 
 function deleteuser(e) {
   
@@ -55,7 +55,7 @@ class AdminUsers extends Component {
 
   render() {
     return (
-      (store.getState().logged_in ?
+      (this.props.logged_in ?
         <div>
           <h3>Logged in!</h3>
           <div>
@@ -67,10 +67,10 @@ class AdminUsers extends Component {
                 <input type="hidden" readOnly value={user.uid_users} />
                 <button onClick={deleteuser} type="submit" value="delete" data-uid={user.uid}>Delete user</button>
               </form>
-            )
-          }
-          )}
-          <br/>
+              )
+            }
+            )}
+            <br/>
           </div>
         </div>
         :

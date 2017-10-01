@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import fire from "../config/fire";
 
+/*
 class SignIn extends Component {
 
   state = {
@@ -20,6 +21,7 @@ class SignIn extends Component {
 
     fire.auth().signInWithEmailAndPassword(email, password).then(user => {
       that.setState({status_msg: null});
+      this.props.loggedin();
     })
     .catch(function(error) {
       that.setState({status_msg: error.message});
@@ -41,14 +43,24 @@ class SignIn extends Component {
         <h3>Sign in</h3>
         { (this.state.status_msg !== null ? 'Error: ' + this.state.status_msg : '') }
         <form onSubmit={this.signin_user.bind(this)}>
-        <input type="text" name="email" placeholder={this.state.email} onChange={this.handleEmailChange.bind(this)} /><br/>
-        <input type="password" name="password" placeholder={this.state.password} onChange={this.handlePasswordChange.bind(this)}/><br/>
-        <input type="submit" />
-      </form>
+          <input type="text" name="email" placeholder={this.state.email} onChange={this.handleEmailChange.bind(this)} /><br/>
+          <input type="password" name="password" placeholder={this.state.password} onChange={this.handlePasswordChange.bind(this)}/><br/>
+          <input type="submit" />
+        </form>
       </div>
     )
   }
 
+}*/
+
+
+const SignIn = (props) => {
+  return (
+    <div>
+      <h3>Logged in</h3>
+      {console.info(props)}
+    </div>
+  );
 }
 
 export default SignIn;

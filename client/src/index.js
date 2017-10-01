@@ -3,66 +3,36 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Link } from 'react-router-dom';
 import Layout from './layout';
 import fire from "./config/fire";
-import routes from './routes';
-import store from './store';
-import {Provider} from "react-redux";
+import reducer from './reducers/reducer.js';
+import {Provider, connect} from "react-redux";
+import App from "./components/app";
+//import routes from './routes';
 
-import {connect} from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reduxThunk from 'redux-thunk';
+
+
+const store = createStore(reducer, {}, applyMiddleware(reduxThunk));
 
 /*
-export let store = createStore(user,
-  +  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-  */
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+,
+  document.getElementById("root")
+);
+*/
 
-
-class App extends Component {
-
-  state = {
-    log: false
-  }  
-
-  componentDidMount() {
-    fire.auth().onAuthStateChanged(user => {
-      if (user) {
-        store.dispatch({
-          type: 'LOGGED_IN',
-          user: user.uid,
-          email: user.email
-        })
-      } else {
-        store.dispatch({
-          type: 'LOGGED_OUT'
-        });
-      }
-      //Update view
-      this.setState({log: Boolean(user)})
-    });  
-  }
-
-  render() {
-    return (
-      <div>
-        <ul>
-        { (store.getState().logged_in ? <li><Link to="/signout">Sign out</Link></li> : <li><Link to="/signin">Sign in</Link></li>) } 
-        { (store.getState().logged_in ? '' : <li><Link to="/create">Create user</Link></li>) }
-        { (store.getState().logged_in ? <li><Link to="/admin">View users</Link></li> : '') }
-        { (store.getState().logged_in ? <li><Link to="/posts">View posts</Link></li> : '') }
-        </ul>
-        { routes }
-      </div>
-    )
-  }
-
-}
-
-connect(App);
 
 ReactDOM.render(
   <Layout>
     <BrowserRouter>
       <div>
         <Provider store={store}>
-          <App />
+          <div>
+            <App />
+          </div>
         </Provider>
       </div>
     </BrowserRouter>

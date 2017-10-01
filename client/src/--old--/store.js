@@ -15,6 +15,10 @@ const user = (
       return {
         logged_in: false
       }
+    CASE 'LOGCHANGE':
+      return {
+        logggg: 'testloggg'
+      }
     default:
       return state
   }
@@ -26,7 +30,7 @@ const store = createStore(
 );
 
 store.subscribe(() =>
-  console.info('state: ' + store.getState().logged_in)
+  console.info('redux subscribe state: ' + store.getState().logged_in)
 )
 
 export default store;

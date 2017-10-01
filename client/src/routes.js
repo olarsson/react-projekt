@@ -1,11 +1,12 @@
-import React from "react";
-import CreateUser from "./users/create_user";
+import React, { Component } from "react";
+//import CreateUser from "./users/create_user";
 import SignIn from "./users/signin_user";
-import SignOut from "./users/signout_user";
+//import SignOut from "./users/signout_user";
 import AdminArea from './admin_area';
-import ViewPosts from './posts/view';
+//import ViewPosts from './posts/view';
 import { Route, Switch } from 'react-router-dom';
 
+/*
 const routes = (
   <Switch>
     <Route path="/create" component={CreateUser} />
@@ -15,5 +16,37 @@ const routes = (
     <Route path="/posts" component={ViewPosts} />
   </Switch>
 );
+*/
+
+
+const AddPropsToRoute = (WrappedComponent, passedProps) => {
+  return class Route extends Component {
+    render() {
+      let props = Object.assign({}, this.props, passedProps);
+      return <WrappedComponent {...props} />;
+    }
+  };
+};
+
+const routes = (
+  
+  <Switch>
+    <Route path='/signin' component={AddPropsToRoute(SignIn, this.props)} />
+    <Route path="/admin" component={AdminArea} {...this.props} />
+  </Switch>
+);
 
 export default routes;
+
+/*
+
+const routes = (
+  <Switch>
+    <Route path="/signin" component={SignIn} {...this.props}/>
+    <Route exact path='/signin' render={(props) => (
+      <SignIn {...props}/>
+    )}/>    
+    <Route path="/admin" component={AdminArea} {...this.props}/>
+  </Switch>
+);
+*/
