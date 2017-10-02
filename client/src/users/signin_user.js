@@ -2,16 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import fire from "../config/fire";
 
-/*
 class SignIn extends Component {
+
+  componentWillReceiveProps(newprops) {
+    //console.info('props updting: ', a)
+    //console.info('bbb props updting: ', b)
+    //console.info(newprops.logged_in)
+    console.info(this.state)
+    if (newprops.logged_in === true) {
+      
+      this.setState({logged_in: true})
+    }
+  }
 
   state = {
     email: 'aa@aa.com',
     password: 'passaa',
-    status_msg: null
+    status_msg: null,
+    logged_in: false
   };
 
-  
   signin_user(e) {
 
     e.preventDefault();
@@ -22,7 +32,7 @@ class SignIn extends Component {
 
     fire.auth().signInWithEmailAndPassword(email, password).then(user => {
       that.setState({status_msg: null});
-      this.props.loggedin();
+      this.props.loggedin(user.uid, user.email);
     })
     .catch(function(error) {
       that.setState({status_msg: error.message});
@@ -42,6 +52,7 @@ class SignIn extends Component {
     return(
       <div>
         <h3>Sign in</h3>
+        <p>Status: {this.props.logged_in ? 'logged in' : 'logged out'}</p>
         { (this.state.status_msg !== null ? 'Error: ' + this.state.status_msg : '') }
         <form onSubmit={this.signin_user.bind(this)}>
           <input type="text" name="email" placeholder={this.state.email} onChange={this.handleEmailChange.bind(this)} /><br/>
@@ -52,7 +63,20 @@ class SignIn extends Component {
     )
   }
 
-}*/
+}
+/*
+// connect application state to props
+function mapStateToProps(state) {
+  //return { loggedin: state.loggedin };
+  return {
+    logged_in: state.logged_in
+  }
+}
+
+export default connect(mapStateToProps)(SignIn);
+*/
+export default SignIn;
+
 /*
 
 const SignIn = (props) => {
@@ -67,11 +91,10 @@ const SignIn = (props) => {
 }
 */
 
+/*
 class SignIn extends Component {
   upd() {
     this.props.changemsg();
-    //console.info('signin props: ', this.props.loggedin)
-    //console.info(this.props.loggedin)
   }
 
   render() {
@@ -83,13 +106,7 @@ class SignIn extends Component {
     );
   }
 }
+*/
 
-
-// connect application state to props
-function mapStateToProps(state) {
-  return { loggedin: state.loggedin };
-}
-
-export default connect(mapStateToProps)(SignIn);
 
 //export default SignIn;

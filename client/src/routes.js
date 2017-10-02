@@ -18,12 +18,14 @@ const routes = (
 );
 */
 
-const routes = (
-  <Switch>
-    <Route path='/signin' component={SignIn} {...this.props} />
-    <Route path="/admin" component={AdminArea} {...this.props} />
-  </Switch>
-);
+const routes = (props) => {
+  return (
+    <Switch>
+      <Route path="/signin" render={props => <SignIn {...props} />} />
+      <Route path="/admin" component={AdminArea} />
+    </Switch>
+  )
+};
 
 export default routes;
 

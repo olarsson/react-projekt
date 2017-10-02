@@ -2,8 +2,12 @@ export const changemsg = () => dispatch => {
   dispatch({ type: "LOGCHANGE" });
 };
 
-export const loggedin = () => dispatch => {
-  dispatch({ type: "LOGGED_IN" });
+export const loggedin = (uid, email) => dispatch => {
+  dispatch({
+    type: "LOGGED_IN",
+    uid: uid,
+    email: email
+  });
 };
 
 
