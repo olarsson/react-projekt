@@ -19,7 +19,6 @@ const routes = (
 */
 
 const routes = (
-  
   <Switch>
     <Route path='/signin' component={SignIn} {...this.props} />
     <Route path="/admin" component={AdminArea} {...this.props} />

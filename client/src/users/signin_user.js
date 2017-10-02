@@ -53,16 +53,37 @@ class SignIn extends Component {
   }
 
 }*/
-
+/*
 
 const SignIn = (props) => {
+
+  console.info('signin props: ', props)
+
   return (
     <div>
       <h3>Logged in</h3>
-      {console.info(props)}
     </div>
   );
 }
+*/
+
+class SignIn extends Component {
+  upd() {
+    this.props.changemsg();
+    //console.info('signin props: ', this.props.loggedin)
+    //console.info(this.props.loggedin)
+  }
+
+  render() {
+    return (
+      <div>
+        <h3>Logged in</h3>
+        <button onClick={this.upd.bind(this)}>testchild > reflect state</button>
+      </div>
+    );
+  }
+}
+
 
 // connect application state to props
 function mapStateToProps(state) {
