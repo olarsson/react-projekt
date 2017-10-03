@@ -1,3 +1,5 @@
+//import axios from 'axios';
+
 export const changemsg = () => dispatch => {
   dispatch({ type: "LOGCHANGE" });
 };
@@ -8,6 +10,10 @@ export const loggedin = (uid, email) => dispatch => {
     uid: uid,
     email: email
   });
+};
+
+export const loggedout = () => dispatch => {
+  dispatch({ type: "LOGGED_OUT" });
 };
 
 

@@ -5,12 +5,7 @@ import fire from "../config/fire";
 class SignIn extends Component {
 
   componentWillReceiveProps(newprops) {
-    //console.info('props updting: ', a)
-    //console.info('bbb props updting: ', b)
-    //console.info(newprops.logged_in)
-    console.info(this.state)
-    if (newprops.logged_in === true) {
-      
+    if (newprops.logged_in === true) {     
       this.setState({logged_in: true})
     }
   }
@@ -49,10 +44,15 @@ class SignIn extends Component {
   }  
 
   render() {
-    return(
+
+    return this.props.logged_in
+    ? 
+      <div>
+        <h3>Welcome!</h3>
+      </div>
+    : 
       <div>
         <h3>Sign in</h3>
-        <p>Status: {this.props.logged_in ? 'logged in' : 'logged out'}</p>
         { (this.state.status_msg !== null ? 'Error: ' + this.state.status_msg : '') }
         <form onSubmit={this.signin_user.bind(this)}>
           <input type="text" name="email" placeholder={this.state.email} onChange={this.handleEmailChange.bind(this)} /><br/>
@@ -60,7 +60,8 @@ class SignIn extends Component {
           <input type="submit" />
         </form>
       </div>
-    )
+      ;
+
   }
 
 }

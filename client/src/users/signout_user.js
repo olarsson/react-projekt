@@ -1,9 +1,17 @@
 import React from "react";
 import fire from "../config/fire";
 
-const SignOut = () => {
+const SignOut = (props) => {
+  
   fire.auth().signOut();
-  return <div>Signed out</div>
+  props.loggedout();
+
+  return (
+    <div>
+      <h2>Logging out..</h2>
+    </div>
+  )  
+
 }
 
 export default SignOut;
