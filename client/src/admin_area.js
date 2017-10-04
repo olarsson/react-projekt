@@ -3,7 +3,10 @@ import React, {Component} from 'react';
 import fire from "./config/fire";
 //import store from './store';
 
+/*
 function deleteuser(e) {
+
+  //console.info(e)
   
   e.preventDefault();
 
@@ -12,6 +15,7 @@ function deleteuser(e) {
   p = e.target.parentNode;
 
   e.target.disabled = true;
+
 
   fetch("/admin_delete", {
     method: "POST",
@@ -29,6 +33,16 @@ function deleteuser(e) {
   });
 
 }
+*/
+
+function deleteUser(e, that) {
+  e.preventDefault();
+  console.info(that)
+  //get user details for authentication
+  //console.info(this)
+  //console.info(that)
+  //console.info(this)
+}; 
 
 class AdminUsers extends Component {
 
@@ -51,9 +65,10 @@ class AdminUsers extends Component {
       });
       self.setState({users: x})
     });
-  }
+  } 
 
   render() {
+    let that = this;
     return (
       (this.props.logged_in ?
         <div>
@@ -61,14 +76,14 @@ class AdminUsers extends Component {
           <div>
           { this.state.users.map(function(user, i) {
             return (
-              <form key={i}>
+              <form key={i} onSubmit={(e, that) => deleteUser(e, this)}>
                 Email: {user.email}
                 <input type="hidden" readOnly value={user.uid} />
                 <input type="hidden" readOnly value={user.uid_users} />
-                <button onClick={deleteuser} type="submit" value="delete" data-uid={user.uid}>Delete user</button>
+                <button type="submit" value="delete" data-uid={user.uid}>Delete user</button>
               </form>
               )
-            }
+            }, that
             )}
             <br/>
           </div>

@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+//import { connect } from 'react-redux';
 import fire from "../config/fire";
 
 class SignIn extends Component {
 
   componentWillReceiveProps(newprops) {
-    if (newprops.logged_in === true) {     
-      this.setState({logged_in: true})
-    }
+    if (newprops.logged_in === true) this.setState({logged_in: true})
   }
 
   state = {
-    email: 'aa@aa.com',
-    password: 'passaa',
+    email: "aa@aa.com",
+    password: "passaa",
+    role: "user",    
     status_msg: null,
     logged_in: false
   };
@@ -48,7 +47,7 @@ class SignIn extends Component {
     return this.props.logged_in
     ? 
       <div>
-        <h3>Welcome!</h3>
+        <h3>Hello! You're logged in.</h3>
       </div>
     : 
       <div>

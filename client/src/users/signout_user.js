@@ -8,7 +8,7 @@ const SignOut = (props) => {
 
   return (
     <div>
-      <h2>Logging out..</h2>
+      <h2>Logged out.</h2>
     </div>
   )  
 

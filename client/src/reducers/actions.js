@@ -16,6 +16,14 @@ export const loggedout = () => dispatch => {
   dispatch({ type: "LOGGED_OUT" });
 };
 
+export const signup_success = (uid, email) => dispatch => {
+  dispatch({
+    type: "LOGGED_IN",
+    uid: uid,
+    email: email
+  });
+};
+
 
 
 /*

@@ -10,10 +10,11 @@ import * as actions from '../reducers/actions.js';
 import SignIn from "../users/signin_user";
 import SignOut from "../users/signout_user";
 import AdminArea from '../admin_area';
+import CreateUser from '../users/create_user';
 
 //import { Route } from 'react-router'
-import { Route, Switch } from 'react-router-dom';
-import { browserHistory } from 'react-router' //--- se react-router-dom ovan som nu använder Router, Route
+import { Route } from 'react-router-dom';
+//import { browserHistory } from 'react-router' //--- se react-router-dom ovan som nu använder Router, Route
 //import { Route, Switch } from 'react-router-dom';
 
 class App extends Component {
@@ -32,7 +33,8 @@ class App extends Component {
         <Layout logged_in={this.props.logged_in} email={this.props.email}>
           <Route path="/signin" render={props => <SignIn {...this.props} />} />
           <Route path="/signout" render={props => <SignOut loggedout={this.props.loggedout} />} />
-          <Route path="/admin" component={AdminArea} />
+          <Route path="/admin" render={props => <AdminArea {...this.props} />} />
+          <Route path="/create" render={props => <CreateUser signup_success={this.props.signup_success} logged_in={this.props.logged_in} />} />
           {/*routes(this.props)*/}
         </Layout>
       </BrowserRouter>
