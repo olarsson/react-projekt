@@ -16,9 +16,70 @@ router.get("/", function(req, res, next) {
 
 router.post("/admin_delete", function(req, res) {
 
-  let uid = req.body.uid;
-  let ref = fire.database().ref('users');
+  let ref = fire.database().ref('users'),
+  delete_uid = req.body.delete_uid,
+  admin_email = req.body.admin_email,
+  admin_password = req.body.admin_password,
+  token = req.body.token;
+  
+  //console.info(admin_email, admin_password, delete_uid, token)
+  
+  admin.auth().verifyIdToken(token).then(function(decodedToken) {
+    //var uid = decodedToken.uid;
 
+    admin.auth().deleteUser(delete_uid).then(function() {
+      ref.orderByChild('uid').equalTo(delete_uid).once('value', snapshot => {
+        //User deleted - sucess
+        let updates = {};
+        snapshot.forEach(child => updates[child.key] = null);
+        ref.update(updates);
+        res.json({'result':'success'})
+      }).catch(function(error) {
+        //User deleted - failure
+        res.json({'result':'error', 'message':error})
+      });
+  
+    })
+    .catch(function(error) {
+      //User deleted - failure
+      res.json({'result':'error', 'message':error})
+    });
+
+  })
+  .catch(function(error) {
+    res.json({'result':'error', 'message':error})
+  });
+
+
+
+  /*
+  fire.auth().signInWithEmailAndPassword(admin_email, admin_password).then(user => {
+
+    admin.auth().deleteUser(delete_uid).then(function() {
+      ref.orderByChild('uid').equalTo(delete_uid).once('value', snapshot => {
+        //User deleted - sucess
+        let updates = {};
+        snapshot.forEach(child => updates[child.key] = null);
+        ref.update(updates);
+        res.json({'result':'success'})
+      }).catch(function(error) {
+        //User deleted - failure
+        res.json({'result':'error', 'message':error})
+      });
+  
+    })
+    .catch(function(error) {
+      //User deleted - failure
+      res.json({'result':'error', 'message':error})
+    });
+
+  })
+  .catch(function(error) {
+    res.json({'result':'error', 'message':error})
+  });
+  */
+
+  /*
   admin.auth().deleteUser(uid).then(function() {
     ref.orderByChild('uid').equalTo(uid).once('value', snapshot => {
       //User deleted - sucess
@@ -35,7 +96,8 @@ router.post("/admin_delete", function(req, res) {
   .catch(function(error) {
     //User deleted - failure
     res.json({'result':'admin - ' + error})
-  });    
+  });  
+  */  
 
 });
 

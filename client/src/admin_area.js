@@ -3,19 +3,22 @@ import React, {Component} from 'react';
 import fire from "./config/fire";
 //import store from './store';
 
-/*
-function deleteuser(e) {
 
-  //console.info(e)
-  
+function deleteUser(e, that) {
   e.preventDefault();
+  //console.info(that.props.uid)
+  
+  let btn = e.target.children[1],
+  delete_uid = btn.dataset.uid,
+  pp = e.target.parentNode,
+  p = e.target,
 
-  let uid = e.target.dataset.uid,
-  pp = e.target.parentNode.parentNode,
-  p = e.target.parentNode;
+  admin_email = that.props.email,
+  admin_password = that.props.password,
+  token = that.props.token;
 
-  e.target.disabled = true;
-
+  btn.disabled = true;
+  //console.info(admin_email, admin_password, delete_uid)
 
   fetch("/admin_delete", {
     method: "POST",
@@ -24,24 +27,18 @@ function deleteuser(e) {
       'Content-Type': 'application/json'
     },    
     body: JSON.stringify({
-      'uid': uid
+      'delete_uid' : delete_uid,
+      'admin_email' : admin_email,
+      'admin_password' : admin_password,
+      'token' : token
     })
   })
   .then(response => response.json())
   .then(json => {
     pp.removeChild(p);
+    console.info(json)
   });
 
-}
-*/
-
-function deleteUser(e, that) {
-  e.preventDefault();
-  console.info(that)
-  //get user details for authentication
-  //console.info(this)
-  //console.info(that)
-  //console.info(this)
 }; 
 
 class AdminUsers extends Component {
@@ -78,7 +75,6 @@ class AdminUsers extends Component {
             return (
               <form key={i} onSubmit={(e, that) => deleteUser(e, this)}>
                 Email: {user.email}
-                <input type="hidden" readOnly value={user.uid} />
                 <input type="hidden" readOnly value={user.uid_users} />
                 <button type="submit" value="delete" data-uid={user.uid}>Delete user</button>
               </form>

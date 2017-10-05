@@ -22,12 +22,19 @@ class CreateUser extends Component {
 
     fire.auth().createUserWithEmailAndPassword(email, password).then(user => {
       //Sign up - success
+      
       fire.database().ref("users").push({
         email: email,
         uid: user.uid,
         role: role
       }).then(() => {
-        this.props.signup_success(user.uid, email);
+
+        fire.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+          that.props.signup_success(user.uid, email, password, role, idToken);
+        }).catch(function(error) {
+          that.setState({status_msg: error});
+        });
+
       }).catch((error) => {
         that.setState({status_msg: error});
       })
@@ -75,22 +82,3 @@ class CreateUser extends Component {
 }
 
 export default CreateUser;
-
-
-    //Check if email exists
-/*
-    this.state.users.orderByChild('email').equalTo(email).once('value').then(function(snaps) {
-
-      if (snaps.val() !== null) {
-        console.log('nope, exists')
-      } else {
-
-        var usersCallback = fire.database().ref("users").push({
-          email: email,
-          password: password
-        });
-
-        console.log(usersCallback.key)
-
-      }
-    });*/

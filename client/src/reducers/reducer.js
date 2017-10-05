@@ -10,12 +10,16 @@ const reducer = (
       return {
         uid: action.uid,
         email: action.email,
+        password: action.password,
+        role: action.role,
+        token: action.token,
         logged_in: true
       };
     case "LOGGED_OUT":
       return {
         uid: null,
         email: null,
+        role: "user",
         logged_in: false
       };
     case "LOGCHANGE":

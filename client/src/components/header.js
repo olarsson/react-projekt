@@ -5,7 +5,7 @@ const Header = (props) => {
   return (
     <header>
       <p>Header</p>
-      <p>{props.logged_in ? `Logged in as: ${props.email}` : 'Not logged in.'}</p>
+      <p>{props.logged_in ? `Logged in as "${props.role} / ${props.email}"` : 'Not logged in.'}</p>
       <ul>
         <li><Link to="/">Home</Link></li>
         {props.logged_in ? '' : <li><Link to="/create">Create account</Link></li> }

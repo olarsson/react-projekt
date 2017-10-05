@@ -23,14 +23,27 @@ class SignIn extends Component {
     let email = this.state.email,
     password = this.state.password,
     that = this;
+    
 
     fire.auth().signInWithEmailAndPassword(email, password).then(user => {
-      that.setState({status_msg: null});
-      this.props.loggedin(user.uid, user.email);
+      //First login, success
+      fire.database().ref("users").orderByChild("uid").equalTo(user.uid).once("value").then(function(snaps) {
+        snaps.forEach(snapshot => {
+
+          fire.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+            that.props.loggedin(user.uid, user.email, password, snapshot.val().role, idToken);
+          }).catch(function(error) {
+            //console.info(error)
+            // Handle error
+          });
+          
+        });
+      });
+
     })
     .catch(function(error) {
       that.setState({status_msg: error.message});
-    });    
+    });
 
   }
  
@@ -40,7 +53,7 @@ class SignIn extends Component {
   
   handlePasswordChange(e) {
     this.setState({password: e.target.value});
-  }  
+  }
 
   render() {
 
