@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import fire from "../config/fire";
+import fire from "../../config/fire";
 import MakePost from "./make_post";
-import store from '../store';
 
 class ViewPosts extends Component {
 
@@ -34,8 +33,8 @@ class ViewPosts extends Component {
   }
 
   returnedFunc() {
-    console.log('in out: ' + store.getState().logged_in)
-    if (store.getState().logged_in) {
+    //console.log('in out: ' + store.getState().logged_in)
+    if (this.props.logged_in) {
       return (
         <div>
           <h3>View posts</h3>

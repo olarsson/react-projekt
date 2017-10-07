@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import fire from "../config/fire";
+import fire from "../../config/fire";
 
 class MakePost extends Component {
 

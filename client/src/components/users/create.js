@@ -27,7 +27,7 @@ class CreateUser extends Component {
         role: role
       }).then(() => {
         fire.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-          that.props.signup_success(user.uid, email, password, role, idToken);
+          that.props.signup_success(user.uid, email, role, idToken);
         }).catch(function(error) {
           that.setState({status_msg: error});
         });

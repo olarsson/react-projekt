@@ -20,6 +20,7 @@ const reducer = (
         uid: null,
         email: null,
         role: "user",
+        token: null,
         logged_in: false
       };
     case "LOGCHANGE":

@@ -1,24 +1,21 @@
 import React, {Component} from 'react';
 //import {store} from './index';
 import fire from "../../config/fire";
+import $ from 'jquery';
 //import store from './store';
 
 
 function deleteUser(e, that) {
   e.preventDefault();
-  //console.info(that.props.uid)
-  
-  let btn = e.target.children[1],
-  delete_uid = btn.dataset.uid,
-  pp = e.target.parentNode,
-  p = e.target,
 
-  admin_email = that.props.email,
-  //admin_password = that.props.password,
+  let btn = $(e.target).find('button')[0],
+  form = e.target,
+  delete_uid = $(btn).attr('data-uid'),
   token = that.props.token;
+  //admin_email = that.props.email,
+  //admin_password = that.props.password,
 
   btn.disabled = true;
-  //console.info(admin_email, admin_password, delete_uid)
 
   fetch("/admin_delete", {
     method: "POST",
@@ -28,14 +25,14 @@ function deleteUser(e, that) {
     },    
     body: JSON.stringify({
       'delete_uid' : delete_uid,
-      'admin_email' : admin_email,
+      //'admin_email' : admin_email,
       //'admin_password' : admin_password,
       'token' : token
     })
   })
   .then(response => response.json())
   .then(json => {
-    pp.removeChild(p);
+    $(form).remove();
     console.info(json)
   });
 
@@ -67,7 +64,8 @@ class AdminUsers extends Component {
 
   render() {
     let that = this;
-    return this.props.logged_in ? <div>
+    return this.props.logged_in ?
+      <div>
         <h3>Logged in!</h3>
         <div className="usertable">
           <div className="theader">
@@ -89,9 +87,12 @@ class AdminUsers extends Component {
           }, that)}
           <br />
         </div>
-      </div> : <div>
+      </div>
+      :
+      <div>
         <h3>You need to log in!</h3>
-      </div>;
+      </div>
+      ;
   }
 }
 

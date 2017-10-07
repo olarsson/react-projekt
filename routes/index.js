@@ -18,16 +18,17 @@ router.post("/admin_delete", function(req, res) {
 
   let ref = fire.database().ref('users'),
   delete_uid = req.body.delete_uid,
-  admin_email = req.body.admin_email,
-  admin_password = req.body.admin_password,
+  //admin_email = req.body.admin_email,
+  //admin_password = req.body.admin_password,
   token = req.body.token;
 
-  console.info(token)
+  console.info(delete_uid, token)
   
   //console.info(admin_email, admin_password, delete_uid, token)
 
   admin.auth().verifyIdToken(token).then(function(decodedToken) {
     //var uid = decodedToken.uid;
+    //extra check här? kolla ifall decodedToken.uid har role = admin?
 
     admin.auth().deleteUser(delete_uid).then(function() {
       ref.orderByChild('uid').equalTo(delete_uid).once('value', snapshot => {
