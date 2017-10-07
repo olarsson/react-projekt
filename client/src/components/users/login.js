@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 //import { connect } from 'react-redux';
-import fire from "../config/fire";
+import fire from "../../config/fire";
 
-class SignIn extends Component {
+class LoginUser extends Component {
 
   componentWillReceiveProps(newprops) {
     if (newprops.logged_in === true) this.setState({logged_in: true})
@@ -23,25 +23,21 @@ class SignIn extends Component {
     let email = this.state.email,
     password = this.state.password,
     that = this;
-    
 
     fire.auth().signInWithEmailAndPassword(email, password).then(user => {
       //First login, success
       fire.database().ref("users").orderByChild("uid").equalTo(user.uid).once("value").then(function(snaps) {
         snaps.forEach(snapshot => {
-
           fire.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-            that.props.loggedin(user.uid, user.email, password, snapshot.val().role, idToken);
+            that.props.loggedin(user.uid, user.email, snapshot.val().role, idToken);
           }).catch(function(error) {
-            //console.info(error)
-            // Handle error
-          });
-          
+            that.setState({status_msg: error.message});
+          });         
         });
+      }).catch(function(error) {
+        that.setState({status_msg: error.message});
       });
-
-    })
-    .catch(function(error) {
+    }).catch(function(error) {
       that.setState({status_msg: error.message});
     });
 
@@ -64,7 +60,7 @@ class SignIn extends Component {
       </div>
     : 
       <div>
-        <h3>Sign in</h3>
+        <h3>Login</h3>
         { (this.state.status_msg !== null ? 'Error: ' + this.state.status_msg : '') }
         <form onSubmit={this.signin_user.bind(this)}>
           <input type="text" name="email" placeholder={this.state.email} onChange={this.handleEmailChange.bind(this)} /><br/>
@@ -88,7 +84,7 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps)(SignIn);
 */
-export default SignIn;
+export default LoginUser;
 
 /*
 

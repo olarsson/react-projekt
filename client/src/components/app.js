@@ -1,16 +1,18 @@
 import React, { Component } from "react";
 //import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import Layout from '../layout';
 import fire from "../config/fire";
 import {connect} from "react-redux";
 import * as actions from '../reducers/actions.js';
 
 //import routes from '../routes';
-import SignIn from "../users/signin_user";
-import SignOut from "../users/signout_user";
-import AdminArea from '../admin_area';
-import CreateUser from '../users/create_user';
+import Layout from './layout/layout';
+
+import LoginUser from "./users/login";
+import LogOut from "./users/logout";
+import CreateUser from './users/create';
+
+import AdminArea from './admin/admin';
 
 //import { Route } from 'react-router'
 import { Route } from 'react-router-dom';
@@ -31,8 +33,8 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Layout logged_in={this.props.logged_in} email={this.props.email} role={this.props.role}>
-          <Route path="/signin" render={props => <SignIn {...this.props} />} />
-          <Route path="/signout" render={props => <SignOut loggedout={this.props.loggedout} />} />
+          <Route path="/login" render={props => <LoginUser {...this.props} />} />
+          <Route path="/logout" render={props => <LogOut loggedout={this.props.loggedout} />} />
           <Route path="/admin" render={props => <AdminArea {...this.props} />} />
           <Route path="/create" render={props => <CreateUser signup_success={this.props.signup_success} logged_in={this.props.logged_in} />} />
           {/*routes(this.props)*/}
@@ -54,47 +56,3 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps, actions)(App);
-
-/*
-class App extends Component {
-  render() {
-    return (
-      <ul>
-        <div>App component</div>
-        <Route path="/signin" render={props => <SignIn {...props} />} />
-        <Route path="/admin" component={AdminArea} {...this.props} />
-      </ul>
-    );
-  }
-}
-*/
-
-
-/*
-class App extends Component {
-
-  render() {
-    return (
-      <div>
-        <div>App component</div>
-        <Route path="/signin" component={SignIn} {...this.props} />
-        <Route path="/admin" component={AdminArea} {...this.props} />        
-      </div>
-    );
-  }
-}
-*/
-
-/*
-function mapStateToProps(state) {
-  return {
-    logggg: 'testloggg'
-  }
-}
-
-function mapDispatchToProps() {
-  return {
-    //changemsg: () => store.dispatch({type: 'LOGCHANGE'})
-  }
-}*/
-

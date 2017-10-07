@@ -21,9 +21,11 @@ router.post("/admin_delete", function(req, res) {
   admin_email = req.body.admin_email,
   admin_password = req.body.admin_password,
   token = req.body.token;
+
+  console.info(token)
   
   //console.info(admin_email, admin_password, delete_uid, token)
-  
+
   admin.auth().verifyIdToken(token).then(function(decodedToken) {
     //var uid = decodedToken.uid;
 

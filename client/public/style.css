@@ -1,0 +1,54 @@
+html, body {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+#root {
+  padding: 2em;
+}
+
+header ul {
+  padding: 0;
+  list-style: none;
+}
+
+header ul li {
+  display: inline;
+  padding-right: 1em;
+}
+
+.usertable {
+  display: inline-block;
+}
+
+.usertable .theader {
+  border-bottom: 1px solid #c2c2c2;
+}
+
+.usertable .theader div {
+  min-width: 130px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.usertable form {
+  padding: 0.2em 0;
+}
+
+.usertable form div {
+  min-width: 130px;
+  display: inline-block;
+}
+
+.usertable .theader div:last-of-type,
+.usertable form div:last-of-type {
+  min-width: 80px;
+}

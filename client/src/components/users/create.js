@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import fire from "../config/fire";
+import fire from "../../config/fire";
 
 class CreateUser extends Component {
 
@@ -21,25 +21,20 @@ class CreateUser extends Component {
     role = this.state.role;
 
     fire.auth().createUserWithEmailAndPassword(email, password).then(user => {
-      //Sign up - success
-      
       fire.database().ref("users").push({
         email: email,
         uid: user.uid,
         role: role
       }).then(() => {
-
         fire.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
           that.props.signup_success(user.uid, email, password, role, idToken);
         }).catch(function(error) {
           that.setState({status_msg: error});
         });
-
       }).catch((error) => {
         that.setState({status_msg: error});
       })
-    })
-    .catch(function(error) {
+    }).catch(function(error) {
       that.setState({status_msg: error.message});
     });
 

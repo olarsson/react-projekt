@@ -8,6 +8,8 @@ import App from "./components/app";
 import { createStore, applyMiddleware } from "redux";
 import reduxThunk from "redux-thunk";
 import { Provider } from "react-redux";
+
+//import styles from './public/style.css';
 //import { Router, Route, browserHistory } from 'react-router' //--- se react-router-dom ovan som nu använder Router, Route
 
 //import routes from './routes';

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 //import {store} from './index';
-import fire from "./config/fire";
+import fire from "../../config/fire";
 //import store from './store';
 
 
@@ -14,7 +14,7 @@ function deleteUser(e, that) {
   p = e.target,
 
   admin_email = that.props.email,
-  admin_password = that.props.password,
+  //admin_password = that.props.password,
   token = that.props.token;
 
   btn.disabled = true;
@@ -29,7 +29,7 @@ function deleteUser(e, that) {
     body: JSON.stringify({
       'delete_uid' : delete_uid,
       'admin_email' : admin_email,
-      'admin_password' : admin_password,
+      //'admin_password' : admin_password,
       'token' : token
     })
   })
@@ -57,6 +57,7 @@ class AdminUsers extends Component {
           uid: snapshot.val().uid,
           uid_users: snapshot.key,
           email: snapshot.val().email,
+          role:  snapshot.val().role,
           key: i
         })
       });
@@ -66,30 +67,31 @@ class AdminUsers extends Component {
 
   render() {
     let that = this;
-    return (
-      (this.props.logged_in ?
-        <div>
-          <h3>Logged in!</h3>
-          <div>
-          { this.state.users.map(function(user, i) {
-            return (
-              <form key={i} onSubmit={(e, that) => deleteUser(e, this)}>
-                Email: {user.email}
-                <input type="hidden" readOnly value={user.uid_users} />
-                <button type="submit" value="delete" data-uid={user.uid}>Delete user</button>
-              </form>
-              )
-            }, that
-            )}
-            <br/>
+    return this.props.logged_in ? <div>
+        <h3>Logged in!</h3>
+        <div className="usertable">
+          <div className="theader">
+            <div>Role</div>
+            <div>Email</div>
+            <div />
           </div>
+          {this.state.users.map(function(user, i) {
+            return <form key={i} onSubmit={(e, that) => deleteUser(e, this)}>
+                <input type="hidden" readOnly value={user.uid_users} />
+                <div>{user.role}</div>
+                <div>{user.email}</div>
+                <div>
+                  <button type="submit" value="delete" data-uid={user.uid}>
+                    Delete user
+                  </button>
+                </div>
+              </form>;
+          }, that)}
+          <br />
         </div>
-        :
-        <div>
-          <h3>You need to log in!</h3>
-        </div>
-      )
-    )
+      </div> : <div>
+        <h3>You need to log in!</h3>
+      </div>;
   }
 }
 
