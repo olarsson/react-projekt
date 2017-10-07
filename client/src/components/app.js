@@ -35,7 +35,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Layout logged_in={this.props.logged_in} email={this.props.email} role={this.props.role}>
-          <Route path="/login" render={props => <LoginUser {...this.props} />} />
+          <Route exact path="/" render={props => <LoginUser {...this.props} />} />
           <Route path="/logout" render={props => <LogOut loggedout={this.props.loggedout} />} />
           <Route path="/admin" render={props => <AdminArea {...this.props} />} />
           <Route path="/create" render={props => <CreateUser signup_success={this.props.signup_success} logged_in={this.props.logged_in} />} />
@@ -51,7 +51,7 @@ function mapStateToProps(state){
   return {
     uid: state.uid,
     email: state.email,
-    password: state.password,
+    //password: state.password,
     role: state.role,
     token: state.token,
     logged_in: state.logged_in

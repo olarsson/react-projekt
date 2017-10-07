@@ -15,7 +15,7 @@ class MakePost extends Component {
       postedby: "afhlk8jIUm",
       text: "hello world",
       created: 20170105,
-      likes: {}
+      //likes: {}
     }).then(res => {
       console.info(res)
     });

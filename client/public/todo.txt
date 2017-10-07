@@ -1,0 +1,89 @@
+actions > signup_success > variabler
+create user > if no users > create admin
+setstate?
+.indexOn
+
+users db
+
+
+admin sida
+ - tryck delete, disable fält tills resultat
+
+db rules
+ - warning för "uid" indexon
+
+api
+ - säkra api för requests?
+ - ändra till post
+
+------------------------------------------
+
+
+public
+ - visa flöde
+ - kommentera
+
+admin
+ - logga in (konto skapas manuellt)
+ - visa inlägg
+   - redigera
+   - ta bort
+ - visa användare
+   - ta bort
+   - ändra usertype (admin/user)
+
+user
+ - skapa konto
+ - logga in
+
+
+Databas
+------------------------------------
+
+DB-namn:  users
+id:	  [unique number, integer]
+admin:	  [boolean]
+email:	  [unique string, string ]
+password: [password,      string ]
+
+
+DB-namn: posts
+id:	  [unique number, integer]
+postedby: [*users.id, 	  integer]
+text:	  [post content,  string ]
+created:  [datetime,      integer]
+likes:	  {
+	    0: [*users.id],
+	    1: [*users.id],
+	    2: [*users.id]
+	  }
+
+
+
+"users": {
+  $uid 12: {
+    admin: true,
+    email: aa@aa.com,
+    password: pwd
+  },
+  $uid 30: {
+    admin: false,
+    email: b@bbbbb.com,
+    password: pwdpwd
+  }
+}
+
+
+"posts": {
+  $uid: {
+    postedby: 12,
+    text: "hello world",
+    created: 20170105,
+    likes: {
+      0: 30,
+      1: 12
+    }
+  }
+}
+
+
