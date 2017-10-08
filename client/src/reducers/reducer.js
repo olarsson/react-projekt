@@ -6,11 +6,10 @@ const reducer = (
 ) => {
   switch (action.type) {
     case "LOGGED_IN":
-      //console.info('logge din yeah!! ', action)
+      console.info('logge din yeah!! ', action.role)
       return {
         uid: action.uid,
         email: action.email,
-        //password: action.password,
         role: action.role,
         token: action.token,
         logged_in: true

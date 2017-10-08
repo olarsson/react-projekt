@@ -25,9 +25,7 @@ class App extends Component {
 
   componentWillMount = () => {
     fire.auth().onAuthStateChanged(user => {
-      if (!user) {
-        this.props.loggedout();
-      }
+      if (!user) this.props.loggedout();
     });
   };
 

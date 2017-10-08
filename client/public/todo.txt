@@ -1,13 +1,9 @@
 • like inlägg
 • användare redigera inlägg/ta bort like
 • admin redigera/ta bort inlägg
-• första användaren = admin
 
 
 actions > signup_success > variabler
-create user > if no users > create admin
-setstate?
-.indexOn
 
 users db
 

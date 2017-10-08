@@ -29,6 +29,7 @@ class LoginUser extends Component {
       fire.database().ref("users").orderByChild("uid").equalTo(user.uid).once("value").then(function(snaps) {
         snaps.forEach(snapshot => {
           fire.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+            console.log(snapshot.val().role)
             that.props.loggedin(user.uid, user.email, snapshot.val().role, idToken);
           }).catch(function(error) {
             that.setState({status_msg: error.message});
