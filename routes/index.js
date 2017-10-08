@@ -171,55 +171,6 @@ router.post("/admin_delete_user", function(req, res) {
     res.json({'result':'error', 'message':error})
   });
 
-
-
-  /*
-  fire.auth().signInWithEmailAndPassword(admin_email, admin_password).then(user => {
-
-    admin.auth().deleteUser(delete_uid).then(function() {
-      ref.orderByChild('uid').equalTo(delete_uid).once('value', snapshot => {
-        //User deleted - sucess
-        let updates = {};
-        snapshot.forEach(child => updates[child.key] = null);
-        ref.update(updates);
-        res.json({'result':'success'})
-      }).catch(function(error) {
-        //User deleted - failure
-        res.json({'result':'error', 'message':error})
-      });
-  
-    })
-    .catch(function(error) {
-      //User deleted - failure
-      res.json({'result':'error', 'message':error})
-    });
-
-  })
-  .catch(function(error) {
-    res.json({'result':'error', 'message':error})
-  });
-  */
-
-  /*
-  admin.auth().deleteUser(uid).then(function() {
-    ref.orderByChild('uid').equalTo(uid).once('value', snapshot => {
-      //User deleted - sucess
-      let updates = {};
-      snapshot.forEach(child => updates[child.key] = null);
-      ref.update(updates);
-      res.json({'result':'deleted'})
-    }).catch(function(error) {
-      //User deleted - failure
-      res.json({'result':'users - ' + error})
-    });
-
-  })
-  .catch(function(error) {
-    //User deleted - failure
-    res.json({'result':'admin - ' + error})
-  });  
-  */  
-
 });
 
 module.exports = router;

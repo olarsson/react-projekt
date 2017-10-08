@@ -4,7 +4,8 @@ import $ from 'jquery';
 class MakePost extends Component {
 
   state = {
-    posts: []
+    posts: [],
+    message: ''
   };
 
   make_post(e) {

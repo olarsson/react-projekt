@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 //import {store} from './index';
-import fire from "../../config/fire";
+//import fire from "../../config/fire";
 import $ from 'jquery';
 //import store from './store';
 
