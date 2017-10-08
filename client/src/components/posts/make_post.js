@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import fire from "../../config/fire";
 import $ from 'jquery';
 
 class MakePost extends Component {
@@ -13,44 +12,34 @@ class MakePost extends Component {
     e.preventDefault();
 
     let message = $(e.target).find('[name=message]')[0].value,
-    token = this.props.token;
+    token = this.props.token,
+    btn = $(e.target).find('[type=submit]')[0];
 
-    fetch("/make_post", {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },    
-      body: JSON.stringify({
-        'message' : message,
-        'token' : token
+    if (!btn.disabled) {
+      btn.disabled = true;
+      fetch("/make_post", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },    
+        body: JSON.stringify({
+          'message' : message,
+          'token' : token
+        })
       })
-    })
-    .then(response => response.json())
-    .then(json => {
-      //$(form).remove();
-      console.info("/makepost : ", json)
-    })
-    .catch(error => {
-      console.info("/makepost error : ", error)
-    })
-
-
-    /*
-    fire.database().ref("posts").push({
-      postedby: "afhlk8jIUm",
-      text: message,
-      created: new Date().getTime()
-      //likes: {}
-    }).then(res => {
-      console.info(res)
-    });
-    */
-    
+      .then(response => response.json())
+      .then(json => {
+        //console.info("/makepost : ", json)
+        btn.disabled = false;
+      })
+      .catch(error => {
+        console.info("/makepost error : ", error)
+        btn.disabled = false;
+      })
+    }
 
   }
-
-
 
   handleMessage(e) {
     this.setState({message: e.target.value});

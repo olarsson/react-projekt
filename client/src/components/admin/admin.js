@@ -4,6 +4,30 @@ import fire from "../../config/fire";
 import $ from 'jquery';
 //import store from './store';
 
+function getUserList(that) {
+
+  if (that.props.token) {
+    fetch("/admin_get_userlist", {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        token: that.props.token
+      })
+    })
+    .then(response => response.json())
+    .then(json => {
+      //console.info('getUserList: ', json)
+      if (json.result === "success") {
+        that.setState({users: json.users})
+      }
+    });
+  }
+
+}
+
 
 function deleteUser(e, that) {
   e.preventDefault();
@@ -15,24 +39,24 @@ function deleteUser(e, that) {
   //admin_email = that.props.email,
   //admin_password = that.props.password,
 
-  btn.disabled = true;
-
-  fetch("/admin_delete_user", {
-    method: "POST",
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },    
-    body: JSON.stringify({
-      'delete_uid' : delete_uid,
-      'token' : token
+  if (!btn.disabled) {
+    btn.disabled = true;
+    fetch("/admin_delete_user", {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },    
+      body: JSON.stringify({
+        'delete_uid' : delete_uid,
+        'token' : token
+      })
     })
-  })
-  .then(response => response.json())
-  .then(json => {
-    $(form).remove();
-    console.info(json)
-  });
+    .then(response => response.json())
+    .then(json => {
+      $(form).remove();
+    });
+  }
 
 }; 
 
@@ -43,22 +67,8 @@ class AdminUsers extends Component {
   }
 
   componentDidMount() {
-    let self = this;
-    fire.database().ref("users").orderByChild("uid").once("value").then(function(snaps) {
-      let x = [], i = 0;
-      snaps.forEach(snapshot => {
-        i++;
-        x.push({
-          uid: snapshot.val().uid,
-          uid_users: snapshot.key,
-          email: snapshot.val().email,
-          role:  snapshot.val().role,
-          key: i
-        })
-      });
-      self.setState({users: x})
-    });
-  } 
+    getUserList(this)
+  }
 
   render() {
     let that = this;
@@ -77,9 +87,11 @@ class AdminUsers extends Component {
                 <div>{user.role}</div>
                 <div>{user.email}</div>
                 <div>
+                  {user.role === 'user' ? 
                   <button type="submit" value="delete" data-uid={user.uid}>
                     Delete user
                   </button>
+                  : ''}
                 </div>
               </form>;
           }, that)}

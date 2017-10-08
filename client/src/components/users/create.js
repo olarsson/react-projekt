@@ -6,7 +6,7 @@ class CreateUser extends Component {
   state = {
     email: "aa@aa.com",
     password: "passaa",
-    role: "admin",
+    role: "user",
     uid: null,
     status_msg: null
   };
@@ -17,23 +17,38 @@ class CreateUser extends Component {
 
     var that = this,
     email = this.state.email,
-    password = this.state.password,
-    role = this.state.role;
-
+    password = this.state.password;
+    
     fire.auth().createUserWithEmailAndPassword(email, password).then(user => {
-      fire.database().ref("users").push({
-        email: email,
-        uid: user.uid,
-        role: role
-      }).then(() => {
-        fire.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-          that.props.signup_success(user.uid, email, role, idToken);
-        }).catch(function(error) {
-          that.setState({status_msg: error});
-        });
-      }).catch((error) => {
-        that.setState({status_msg: error});
+      
+      fetch("/admin_create_user", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          uid: user.uid
+        })
       })
+      .then(response => response.json())
+      .then(json => {
+
+        if (json.result === "success") {
+          fire.auth().currentUser.getIdToken(true).then(function(idToken) {
+            that.props.signup_success(json.uid, email, json.role, idToken);
+          }).catch(function(error) {
+            that.setState({status_msg: error});
+          });
+        } else {
+          that.setState({status_msg: json.message});
+        }
+        
+        //that.setState({status_msg: (json.result === "success" ? null : json.message)})
+
+      });
+      
     }).catch(function(error) {
       that.setState({status_msg: error.message});
     });
@@ -48,10 +63,6 @@ class CreateUser extends Component {
     this.setState({password: e.target.value});
   }
 
-  handleRoleChange(e) {
-    this.setState({role: e.target.value});
-  }  
-
   render() {
     return this.props.logged_in
     ?
@@ -65,10 +76,6 @@ class CreateUser extends Component {
         <form onSubmit={this.create_account.bind(this)}>
           <input type="text" name="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange.bind(this)} /><br/>
           <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)}/><br/>
-          <select name="role" onChange={this.handleRoleChange.bind(this)}>
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
-          </select>          
           <input type="submit" />
         </form>
       </div>

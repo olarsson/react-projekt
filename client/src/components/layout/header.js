@@ -11,7 +11,7 @@ const Header = (props) => {
         {props.logged_in ? '' : <li><Link to="/create">Create account</Link></li> }
         {props.logged_in ? '' : <li><Link to="/">Login</Link></li> }
         {!props.logged_in ? '' : <li><Link to="/logout">Log out</Link></li> }
-        <li><Link to="/admin">Admin</Link></li>
+        {props.logged_in && props.role === 'admin' ? <li><Link to="/admin">Admin</Link></li> : '' }
       </ul>
       <hr/>
     </header>
