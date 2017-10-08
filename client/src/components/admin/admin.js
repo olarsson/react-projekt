@@ -17,7 +17,7 @@ function deleteUser(e, that) {
 
   btn.disabled = true;
 
-  fetch("/admin_delete", {
+  fetch("/admin_delete_user", {
     method: "POST",
     headers: {
       'Accept': 'application/json',
@@ -25,8 +25,6 @@ function deleteUser(e, that) {
     },    
     body: JSON.stringify({
       'delete_uid' : delete_uid,
-      //'admin_email' : admin_email,
-      //'admin_password' : admin_password,
       'token' : token
     })
   })

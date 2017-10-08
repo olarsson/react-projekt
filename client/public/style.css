@@ -25,6 +25,10 @@ header ul li {
   padding-right: 1em;
 }
 
+/********************************/
+/* admin area
+/********************************/
+
 .usertable {
   display: inline-block;
 }
@@ -52,3 +56,26 @@ header ul li {
 .usertable form div:last-of-type {
   min-width: 80px;
 }
+
+/********************************/
+/* view posts
+/********************************/
+
+.post {
+  border: 1px solid lightseagreen;
+  margin-bottom: 2em;
+}
+
+.post .makepost {
+  transition: max-height 1s;
+  display: block;
+  max-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.post .makepost.active {
+  max-height: 200px;
+}
+
+/********************************/

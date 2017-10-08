@@ -14,7 +14,46 @@ router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-router.post("/admin_delete", function(req, res) {
+
+
+
+
+
+
+router.post("/make_post", function(req, res) {
+  
+    let message = req.body.message,
+    token = req.body.token;
+  
+    admin.auth().verifyIdToken(token).then(function(decodedToken) {
+
+      fire.database().ref("posts").push({
+        postedby: decodedToken.uid,
+        text: message,
+        created: new Date().getTime()
+        //likes: {}
+      })
+      .then(result => {
+        res.json({'result':'success'})
+      })
+      .catch(function(error) {
+        res.json({'result':'error', 'message':error})
+      });
+
+    })
+    .catch(function(error) {
+      res.json({'result':'error', 'message':error})
+    });
+  
+  });
+
+
+
+
+
+
+
+router.post("/admin_delete_user", function(req, res) {
 
   let ref = fire.database().ref('users'),
   delete_uid = req.body.delete_uid,

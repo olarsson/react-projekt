@@ -34,6 +34,10 @@ class ViewPosts extends Component {
     });
   }
 
+  none(e) {
+    e.preventDefault();
+  }
+
   printPosts() {
     return (
       this.state.posts.map((post, i) => {
@@ -43,7 +47,8 @@ class ViewPosts extends Component {
             <div>Created: {post.created}</div>
             <div>Postedby: {post.postedby}</div>
             {post.likes ? <div>Likes: post.likes.length</div> : ''}
-            <MakePost/>
+            <button onClick={this.none} className="makepost_visible">Make post</button>
+            <MakePost token={this.props.token}/>
           </div>
         )
       })
