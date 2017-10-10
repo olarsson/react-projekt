@@ -12,6 +12,8 @@ import LoginUser from "./users/login";
 import LogOut from "./users/logout";
 import CreateUser from './users/create';
 
+import Blog from './blog/blog';
+
 import ViewPosts from './posts/view';
 
 import AdminArea from './admin/admin';
@@ -36,6 +38,7 @@ class App extends Component {
           <Route exact path="/" render={props => <LoginUser {...this.props} />} />
           <Route path="/logout" render={props => <LogOut loggedout={this.props.loggedout} />} />
           <Route path="/admin" render={props => <AdminArea {...this.props} />} />
+          <Route path="/blog" render={props => <Blog {...this.props} />} />
           <Route path="/create" render={props => <CreateUser signup_success={this.props.signup_success} logged_in={this.props.logged_in} />} />
           <Route path="/posts" render={props => <ViewPosts {...this.props} />} />
           {/*routes(this.props)*/}

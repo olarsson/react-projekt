@@ -62,11 +62,16 @@ header ul li {
 /********************************/
 
 .post {
-  border: 1px solid lightseagreen;
+  border: 2px solid lightseagreen;
   margin-bottom: 2em;
 }
 
-.post .makepost {
+.blogpost {
+  border: 5px solid lightcoral;
+  margin-bottom: 2em;
+}
+
+.blogpost .makepost {
   transition: max-height 1s;
   display: block;
   max-height: 0;
@@ -74,7 +79,7 @@ header ul li {
   overflow: hidden;
 }
 
-.post .makepost.active {
+.blogpost .makepost.active {
   max-height: 200px;
 }
 

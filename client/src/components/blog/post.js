@@ -1,25 +1,24 @@
 import React, { Component } from "react";
 import $ from 'jquery';
 
-class MakePost extends Component {
+class MakeBlogPost extends Component {
 
   state = {
     posts: [],
     message: ''
   };
 
-  make_post(e) {
+  make_blog_post(e) {
 
     e.preventDefault();
 
     let message = $(e.target).find('[name=message]')[0].value,
     token = this.props.token,
-    reference = this.props.reference || 0,
     btn = $(e.target).find('[type=submit]')[0];
 
     if (!btn.disabled) {
       btn.disabled = true;
-      fetch("/make_post", {
+      fetch("/make_blog_post", {
         method: "POST",
         headers: {
           'Accept': 'application/json',
@@ -27,17 +26,15 @@ class MakePost extends Component {
         },    
         body: JSON.stringify({
           'message' : message,
-          'token' : token,
-          'reference' : reference
+          'token' : token
         })
       })
       .then(response => response.json())
       .then(json => {
-        //console.info("/makepost : ", json)
         btn.disabled = false;
       })
       .catch(error => {
-        console.info("/make_post error : ", error)
+        console.info("/make_blog_post error : ", error)
         btn.disabled = false;
       })
     }
@@ -51,8 +48,8 @@ class MakePost extends Component {
   render() {
     return (
       <div className="makepost">
-        <h4>Make post</h4>
-        <form onSubmit={this.make_post.bind(this)}>
+        <h4>Make blog post</h4>
+        <form onSubmit={this.make_blog_post.bind(this)}>
           <input type="text" name="message" placeholder="Message" value={this.state.message} onChange={this.handleMessage.bind(this)} /><br/>
           <input type="submit" />
         </form>
@@ -61,4 +58,4 @@ class MakePost extends Component {
   }
 }
 
-export default MakePost;
+export default MakeBlogPost;
