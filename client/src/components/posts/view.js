@@ -33,6 +33,7 @@ class ViewPosts extends Component {
         });
       });
       that.setState({blogposts: x})
+      //that.props.bloglist(x)
     })
     .catch(error => {
       console.info(error);
@@ -65,12 +66,47 @@ class ViewPosts extends Component {
     });
   }
 
+
+
+  deleteComment(e, token, postid) {
+
+    console.info({
+      postid: postid,
+      token: token
+    })
+    
+    if (token) {
+      fetch("/admin_delete_comment", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          postid: postid,
+          token: token
+        })
+      })
+      .then(response => response.json())
+      .then(json => {
+        console.info('deleteComment: ', json)
+        //if (json.result === "success") {
+          //that.setState({users: json.users})
+          //that.forceUpdate()
+        //}
+      });
+    }
+  
+  }
+
+
   none(e) {
     e.preventDefault();
   }
 
 
   printPosts() {
+    var token = this.props.token;
     return (
       this.state.blogposts.map((blogpost, i) => {
         return (
@@ -90,12 +126,13 @@ class ViewPosts extends Component {
                       <div>Text: {post.text}</div>
                       <div>Created: {post.created}</div>
                       <div>Postedby: {post.postedby}</div>
+                      <button onClick={(e, token, postid) => this.deleteComment(e, this.props.token, post.id)}>Delete comment</button>
                     </div>
                   )
                 }
               }, blogpost.id)
             }
-            <button onClick={this.none} className="makepost_visible">Make post</button>
+            <button onClick={this.none} className="makepost_visible">Comment</button>
             <MakePost token={this.props.token} reference={blogpost.id}/>
           </div>
         )

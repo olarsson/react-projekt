@@ -1,4 +1,4 @@
-const reducer = (
+const auth = (
   state = {
     logged_in: false
   },
@@ -21,15 +21,9 @@ const reducer = (
         token: null,
         logged_in: false
       };
-    case "LOGCHANGE":
-      if (state.log) {
-        return { log: state.log + 1 };
-      } else {
-        return { log: 1 };
-      }
     default:
       return state;
   }
 };
 
-export default reducer;
+export default auth;

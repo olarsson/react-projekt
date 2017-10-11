@@ -21,3 +21,19 @@ export const signup_success = (uid, email, role, token) => dispatch => {
     token: token
   });
 };
+
+export const bloglist = (blog_list) => dispatch => {
+  //console.info("blog_list::::", blog_list)
+  dispatch({
+    type: "BLOGLIST",
+    payload: blog_list
+  });
+};
+
+export const listpostsandcomments = (list_all) => dispatch => {
+  dispatch({
+    type: "LISTPOSTSANDCOMMENTS",
+    payload: list_all
+    // list_all: list_all
+  });
+};

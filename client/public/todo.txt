@@ -1,6 +1,7 @@
-• like inlägg
-• användare redigera inlägg/ta bort like
-• admin redigera/ta bort inlägg
+ • like inlägg
+ • användare redigera inlägg/ta bort like
+ • admin redigera/ta bort inlägg
+ • se till så att roles kontrolleras på admin funktioner
 
 
 actions > signup_success > variabler
@@ -11,12 +12,6 @@ users db
 admin sida
  - tryck delete, disable fält tills resultat
 
-db rules
- - warning för "uid" indexon
-
-api
- - säkra api för requests?
- - ändra till post
 
 ------------------------------------------
 

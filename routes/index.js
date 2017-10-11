@@ -10,23 +10,36 @@ admin.initializeApp({
   databaseURL: "https://<DATABASE_NAME>.firebaseio.com"
 });
 
-/*
-router.get("/", function(req, res, next) {
-  res.render("index", { title: "Express" });
-});
-*/
 
 
 
 
 
 
+router.post("/admin_delete_comment", function(req, res) {
+  
+  let postid = req.body.postid,
+  token = req.body.token;
 
-  /*var eventContactsRef = firebase.database().ref('events-contacts');
-  var query = eventContactsRef.orderByChild('eventContactId').equalTo(eventContactId);
-  query.on('child_added', function(snapshot) {
+  admin.auth().verifyIdToken(token).then(function(decodedToken) {
+
+    //ta bort kommentar
+    fire.database().ref('posts/'+postid).on('value', function(snapshot){
       snapshot.ref.remove();
-  })*/
+    })
+
+    res.json({'result':'success'})
+
+  })
+  .catch(function(error) {
+    console.info(error)
+    res.json({ result: "error", message: error });
+  });
+
+});
+
+
+
 
 
 router.post("/admin_delete_blog_and_comments", function(req, res) {
