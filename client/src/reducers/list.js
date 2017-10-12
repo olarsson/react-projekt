@@ -5,15 +5,15 @@ const listReducer = (
   },
   action
 ) => {
-  console.log(' -- reducer --')
+  //console.log(' -- reducer --')
   switch (action.type) {
     case "LISTPOSTSANDCOMMENTS":
-      console.info("LISTPOSTSANDCOMMENTS: ", action.payload)
+      //console.info("LISTPOSTSANDCOMMENTS: ", action.payload)
       return {
         list_all: action.payload
       };
     case "BLOGLIST":
-      console.info("BLOGLIST: ", action.payload)
+      //console.info("BLOGLIST: ", action.payload)
       return {
         blog_list: action.payload
       };      

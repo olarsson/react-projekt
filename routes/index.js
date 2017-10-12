@@ -56,11 +56,17 @@ router.post("/admin_delete_blog_and_comments", function(req, res) {
       });
 
       //ta bort blogpost
-      fire.database().ref('blog/'+blogid).on('value', function(snapshot){
+      fire.database().ref('blog/'+blogid).once('value', function(snapshot) {
         snapshot.ref.remove();
       })
+      .then(() => {
+        res.json({'result':'success'})
+      })
+      .catch(function(error) {
+        console.info(error)
+        res.json({'result':'error', 'message':error})
+      });      
 
-      res.json({'result':'success'})
     })
     .catch(function(error) {
       console.info(error)

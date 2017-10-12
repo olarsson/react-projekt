@@ -49,18 +49,16 @@ class App extends Component {
 }
 
 function mapStateToProps(state){
-  console.info(state)
-  console.info(state.listReducer.blog_list)
+  //console.info(state)
+  //console.info(state.listReducer.blog_list)
   return {
     blog_list: state.listReducer.blog_list,
     list_all: state.listReducer.list_all,
-
     uid: state.auth.uid,
     email: state.auth.email,
     role: state.auth.role,
     token: state.auth.token,
     logged_in: state.auth.logged_in,
-    blog_list: state.auth.blog_list
   }
 }
 

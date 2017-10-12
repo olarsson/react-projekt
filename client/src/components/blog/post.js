@@ -31,6 +31,7 @@ class MakeBlogPost extends Component {
       })
       .then(response => response.json())
       .then(json => {
+        this.props.getblogs(this)
         btn.disabled = false;
       })
       .catch(error => {

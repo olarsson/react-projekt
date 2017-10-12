@@ -5,14 +5,8 @@ import $ from 'jquery';
 
 class Blog extends Component {
 
-  state = {
-    blogposts: []
-  };
-
   deleteBlogAndComments(e, that, blogid) {
-    
     let btn = e.target;
-  
     if (!btn.disabled) {
       btn.disabled = true;
       fetch("/admin_delete_blog_and_comments", {
@@ -29,36 +23,16 @@ class Blog extends Component {
       .then(response => response.json())
       .then(json => {
         btn.disabled = false;
-        if (json.result === "success") {
-          this.getBlogPosts(that);
-        }
+        this.getBlogPosts(this)
       });
     }
-  
-  }  
-
-  
-  componentWillMount() {
-    if (this.props.logged_in) this.getBlogPosts(this);
   }
-  
 
-  /*componentDidMount() {
-    if (this.props.logged_in) this.getBlogPosts(this);
-  }*/
-
-  /*
   componentDidMount() {
-    this.setState({blogposts: []})
+    if (this.props.logged_in) this.getBlogPosts(this);
   }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({ denom: nextProps.denom })
-  }
-  */
 
   getBlogPosts(that) {
-    //var that = this;
     fire.database().ref("blog").orderByChild("created").once("value").then(function(snaps) {
       let x = [],
       i = 0;
@@ -71,13 +45,7 @@ class Blog extends Component {
           key: i
         });
       });
-/*      
-      that.setState({blogposts: x}, () => {
-        that.setState({update: true});
-      })*/
-      console.info("that.props.bloglist::::", that.props.bloglist)
       that.props.bloglist(x)
-      //that.forceUpdate();
     })
   }
 
@@ -86,10 +54,8 @@ class Blog extends Component {
   }
 
   printPosts() {
-
-    /*
     return (
-      this.props.blog_posts.map((post, i) => {
+      this.props.blog_list.map((post, i) => {
         return (
           <div className="blogpost" key={i}>
             <div>Post id: {post.id}</div>
@@ -100,8 +66,6 @@ class Blog extends Component {
         )
       })
     );
-
-    */
   }
 
   returnedFunc() {
@@ -110,8 +74,7 @@ class Blog extends Component {
         <div>
           <h3>All posts</h3>
           {this.printPosts()}
-          <p>-----</p>
-          {<MakeBlogPost token={this.props.token}/>}
+          {<MakeBlogPost {...this.props} getblogs={this.getBlogPosts}/>}
         </div>
       );
     } else {
