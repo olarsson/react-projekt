@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import fire from "../../config/fire";
 import MakeBlogPost from './post';
-import $ from 'jquery';
 
 class Blog extends Component {
 

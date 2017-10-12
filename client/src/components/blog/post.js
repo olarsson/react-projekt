@@ -4,7 +4,6 @@ import $ from 'jquery';
 class MakeBlogPost extends Component {
 
   state = {
-    posts: [],
     message: ''
   };
 
