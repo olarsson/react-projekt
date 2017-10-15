@@ -1,10 +1,7 @@
-export const loggedin = (uid, email, role, token) => dispatch => {
+export const loggedin = (payload) => dispatch => {
   dispatch({
     type: "LOGGED_IN",
-    uid: uid,
-    email: email,
-    role: role,
-    token: token
+    payload: payload
   });
 };
 
@@ -12,28 +9,23 @@ export const loggedout = () => dispatch => {
   dispatch({ type: "LOGGED_OUT" });
 };
 
-export const signup_success = (uid, email, role, token) => dispatch => {
+export const signup_success = (payload) => dispatch => {
   dispatch({
     type: "LOGGED_IN",
-    uid: uid,
-    email: email,
-    role: role,
-    token: token
+    payload: payload
   });
 };
 
-export const bloglist = (blog_list) => dispatch => {
-  //console.info("blog_list::::", blog_list)
+export const topiclist = (topic_list) => dispatch => {
   dispatch({
-    type: "BLOGLIST",
-    payload: blog_list
+    type: "TOPICLIST",
+    payload: topic_list
   });
 };
 
-export const listpostsandcomments = (list_all) => dispatch => {
+export const boardlist = (list_all) => dispatch => {
   dispatch({
-    type: "LISTPOSTSANDCOMMENTS",
+    type: "TOPICSANDCOMMENTSLIST",
     payload: list_all
-    // list_all: list_all
   });
 };

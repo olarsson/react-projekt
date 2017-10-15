@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
-//import {store} from './index';
-//import fire from "../../config/fire";
 import $ from 'jquery';
-//import store from './store';
 
 function getUserList(that) {
 
   if (that.props.token) {
-    fetch("/admin_get_userlist", {
+    fetch("/admin/userlist", {
       method: "POST",
       headers: {
         'Accept': 'application/json',
@@ -19,15 +16,20 @@ function getUserList(that) {
     })
     .then(response => response.json())
     .then(json => {
-      //console.info('getUserList: ', json)
       if (json.result === "success") {
-        that.setState({users: json.users})
+        that.setState({
+          error: null,
+          users: json.users
+        })
+      } else {
+        that.setState({error: json.message})
       }
-    });
+    }).catch(error => {
+      that.setState({error: error.message})
+    })
   }
 
 }
-
 
 function deleteUser(e, that) {
   e.preventDefault();
@@ -36,12 +38,10 @@ function deleteUser(e, that) {
   form = e.target,
   delete_uid = $(btn).attr('data-uid'),
   token = that.props.token;
-  //admin_email = that.props.email,
-  //admin_password = that.props.password,
 
   if (!btn.disabled) {
     btn.disabled = true;
-    fetch("/admin_delete_user", {
+    fetch("/admin/delete/user", {
       method: "POST",
       headers: {
         'Accept': 'application/json',
@@ -63,7 +63,8 @@ function deleteUser(e, that) {
 class AdminUsers extends Component {
 
   state = {
-    users: []
+    users: [],
+    error: null,
   }
 
   componentDidMount() {
@@ -73,8 +74,11 @@ class AdminUsers extends Component {
   render() {
     let that = this;
     return this.props.logged_in ?
-      <div>
-        <h3>Logged in!</h3>
+      <div className="main">
+        <h3>Manage users</h3>
+
+        {this.state.error === null ? 
+
         <div className="usertable">
           <div className="theader">
             <div>Role</div>
@@ -97,9 +101,16 @@ class AdminUsers extends Component {
           }, that)}
           <br />
         </div>
+
+        : 
+        
+        <p>Error: {this.state.error}</p>
+        
+        } 
+
       </div>
       :
-      <div>
+      <div className="main">
         <h3>You need to log in!</h3>
       </div>
       ;

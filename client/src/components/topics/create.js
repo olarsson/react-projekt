@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import $ from 'jquery';
 
-class MakeBlogPost extends Component {
+class CreateTopic extends Component {
 
   state = {
+    error: null,
     message: ''
   };
 
-  make_blog_post(e) {
+  create_topic(e) {
 
     e.preventDefault();
 
@@ -17,7 +18,7 @@ class MakeBlogPost extends Component {
 
     if (!btn.disabled) {
       btn.disabled = true;
-      fetch("/make_blog_post", {
+      fetch("/topic/create", {
         method: "POST",
         headers: {
           'Accept': 'application/json',
@@ -30,12 +31,17 @@ class MakeBlogPost extends Component {
       })
       .then(response => response.json())
       .then(json => {
-        this.props.getblogs(this)
+        if (json.result === "success") {
+          this.props.gettopics_and_comments(this)
+          this.setState({error: null})
+        } else {
+          this.setState({error: json.message})
+        }
         btn.disabled = false;
       })
       .catch(error => {
-        console.info("/make_blog_post error : ", error)
         btn.disabled = false;
+        this.setState({error: error.message})
       })
     }
 
@@ -47,10 +53,11 @@ class MakeBlogPost extends Component {
 
   render() {
     return (
-      <div className="makepost">
-        <h4>Make blog post</h4>
-        <form onSubmit={this.make_blog_post.bind(this)}>
-          <input type="text" name="message" placeholder="Message" value={this.state.message} onChange={this.handleMessage.bind(this)} /><br/>
+      <div className="makecomment">
+        <h4>Create new topic</h4>
+        <form onSubmit={this.create_topic.bind(this)}>
+          {(this.state.error !== null ? <p>Error: {this.state.error}</p> : '')}
+          <textarea name="message" placeholder="Message" value={this.state.message} onChange={this.handleMessage.bind(this)}></textarea>
           <input type="submit" />
         </form>
       </div>
@@ -58,4 +65,4 @@ class MakeBlogPost extends Component {
   }
 }
 
-export default MakeBlogPost;
+export default CreateTopic;

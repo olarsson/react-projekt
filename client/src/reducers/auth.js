@@ -7,10 +7,10 @@ const auth = (
   switch (action.type) {
     case "LOGGED_IN":
       return {
-        uid: action.uid,
-        email: action.email,
-        role: action.role,
-        token: action.token,
+        uid: action.payload.uid,
+        email: action.payload.email,
+        role: action.payload.role,
+        token: action.payload.token,
         logged_in: true
       };
     case "LOGGED_OUT":

@@ -4,44 +4,44 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var router = express.Router();
 var index = require('./routes/index');
-//var users = require('./routes/users');
-//var admin_delete = require('./routes/admin_delete');
-
 var app = express();
+
+import * as admin from "firebase-admin";
+
+var serviceAccount = require("./project-test-4585e73d8343.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://<DATABASE_NAME>.firebaseio.com"
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//app.use('/', index);
 
-/*
-import * as admin from "firebase-admin";
-import fire from "../client/src/config/fire";
 
-var serviceAccount = require("../project-test-4585e73d8343.json");
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://<DATABASE_NAME>.firebaseio.com"
-});
+app.use(require('./routes/admin/delete/user.js'));
+app.use(require('./routes/admin/delete/comment.js'));
+app.use(require('./routes/admin/delete/topic_and_comments.js'));
+app.use(require('./routes/admin/userlist.js'));
+app.use(require('./routes/user/create_user.js'));
 
-*/
+app.use(require('./routes/topic/create.js'));
 
-//import createuser from './routes/admin/create_user';
+app.use(require('./routes/board/view.js'));
+app.use(require('./routes/board/make_comment.js'));
 
-//app.use(require('./routes/admin/create_user'))
-app.use('/', index);
-
-//app.use('/admin_delete', index);
+//app.use(require('./routes/index.js'));
 
 
 // catch 404 and forward to error handler

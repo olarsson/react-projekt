@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import $ from 'jquery';
 
-class MakePost extends Component {
+class MakeComment extends Component {
 
   state = {
     posts: [],
-    message: ''
+    message: '',
+    error_post: null
   };
 
-  make_post(e) {
+  make_comment(e) {
 
     e.preventDefault();
 
@@ -19,7 +20,7 @@ class MakePost extends Component {
 
     if (!btn.disabled) {
       btn.disabled = true;
-      fetch("/make_post", {
+      fetch("/board/make_comment", {
         method: "POST",
         headers: {
           'Accept': 'application/json',
@@ -33,12 +34,17 @@ class MakePost extends Component {
       })
       .then(response => response.json())
       .then(json => {
-        //console.info("/makepost : ", json)
+        this.props.getBoard(this);
+        if (json.message === "success") {
+          this.setState({error_post: null})
+        } else {
+          this.setState({error_post: json.message})
+        }
         btn.disabled = false;
       })
       .catch(error => {
-        console.info("/make_post error : ", error)
         btn.disabled = false;
+        this.setState({error_post: error.message})
       })
     }
 
@@ -50,10 +56,12 @@ class MakePost extends Component {
 
   render() {
     return (
-      <div className="makepost">
+      <div className="makecomment">
         <h4>Make post</h4>
-        <form onSubmit={this.make_post.bind(this)}>
-          <input type="text" name="message" placeholder="Message" value={this.state.message} onChange={this.handleMessage.bind(this)} /><br/>
+        {/*console.info(this.state.error_post)*/}
+        {this.state.error_post !== null ? <p>Error2: {this.state.error_post}</p> : ''}
+        <form onSubmit={this.make_comment.bind(this)}>
+          <textarea name="message" placeholder="Message" value={this.state.message} onChange={this.handleMessage.bind(this)}></textarea>
           <input type="submit" />
         </form>
       </div>
@@ -61,4 +69,4 @@ class MakePost extends Component {
   }
 }
 
-export default MakePost;
+export default MakeComment;

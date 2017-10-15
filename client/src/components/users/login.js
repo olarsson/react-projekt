@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import { connect } from 'react-redux';
 import fire from "../../config/fire";
 
 class LoginUser extends Component {
@@ -28,7 +27,12 @@ class LoginUser extends Component {
       fire.database().ref("users").orderByChild("uid").equalTo(user.uid).once("value").then(function(snaps) {
         snaps.forEach(snapshot => {
           fire.auth().currentUser.getIdToken(true).then(function(idToken) {
-            that.props.loggedin(user.uid, user.email, snapshot.val().role, idToken);
+            that.props.loggedin({
+              uid: user.uid,
+              email: user.email,
+              role: snapshot.val().role,
+              token: idToken
+            });
           }).catch(function(error) {
             that.setState({status_msg: error.message});
           });         
@@ -54,11 +58,11 @@ class LoginUser extends Component {
 
     return this.props.logged_in
     ? 
-      <div>
+      <div className="main">
         <h3>Hello! You're logged in.</h3>
       </div>
     : 
-      <div>
+      <div className="main">
         <h3>Login</h3>
         { (this.state.status_msg !== null ? 'Error: ' + this.state.status_msg : '') }
         <form onSubmit={this.signin_user.bind(this)}>
@@ -72,49 +76,5 @@ class LoginUser extends Component {
   }
 
 }
-/*
-// connect application state to props
-function mapStateToProps(state) {
-  //return { loggedin: state.loggedin };
-  return {
-    logged_in: state.logged_in
-  }
-}
 
-export default connect(mapStateToProps)(SignIn);
-*/
 export default LoginUser;
-
-/*
-
-const SignIn = (props) => {
-
-  console.info('signin props: ', props)
-
-  return (
-    <div>
-      <h3>Logged in</h3>
-    </div>
-  );
-}
-*/
-
-/*
-class SignIn extends Component {
-  upd() {
-    this.props.changemsg();
-  }
-
-  render() {
-    return (
-      <div>
-        <h3>Logged in</h3>
-        <button onClick={this.upd.bind(this)}>testchild > reflect state</button>
-      </div>
-    );
-  }
-}
-*/
-
-
-//export default SignIn;

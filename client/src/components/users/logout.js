@@ -17,7 +17,7 @@ class LogOut extends Component {
 
   render() {
     return (
-      <div>
+      <div className="main">
         <h2>{this.state.done ? 'Logged out' : 'Logging out..'}</h2>
       </div>
     )

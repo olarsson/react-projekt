@@ -3,11 +3,13 @@
 var project = {
 
   globalEvents: function() {
-    $(document).on('click', '.blogpost .makepost_visible', function(e) {
+
+    $(document).on('click', '.topic .makecomment_visible', function(e) {
       e.preventDefault();
-      $('.makepost').removeClass('active');
-      $(this).next('.makepost').addClass('active')
+      $('.makecomment').removeClass('active');
+      $(this).next('.makecomment').addClass('active')
     });
+    
   }
 
 };

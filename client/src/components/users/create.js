@@ -37,15 +37,18 @@ class CreateUser extends Component {
 
         if (json.result === "success") {
           fire.auth().currentUser.getIdToken(true).then(function(idToken) {
-            that.props.signup_success(json.uid, email, json.role, idToken);
+            that.props.signup_success({
+              uid: json.uid,
+              email: email,
+              role: json.role,
+              token: idToken
+            });
           }).catch(function(error) {
             that.setState({status_msg: error});
           });
         } else {
           that.setState({status_msg: json.message});
         }
-        
-        //that.setState({status_msg: (json.result === "success" ? null : json.message)})
 
       });
       
@@ -66,11 +69,11 @@ class CreateUser extends Component {
   render() {
     return this.props.logged_in
     ?
-      <div>
+      <div className="main">
         <h3>Welcome, your account was successfully created.</h3>
       </div>
     :
-      <div>
+      <div className="main">
         <h3>Create account</h3>
         { (this.state.status_msg !== null ? 'Error: ' + this.state.status_msg : '') }
         <form onSubmit={this.create_account.bind(this)}>

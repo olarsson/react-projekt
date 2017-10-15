@@ -1,27 +1,18 @@
 import React, { Component } from "react";
-//import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import fire from "../config/fire";
 import {connect} from "react-redux";
 import * as actions from '../reducers/actions.js';
 
-//import routes from '../routes';
-import Layout from './layout/layout';
-
+import Body from './layout/body';
 import LoginUser from "./users/login";
 import LogOut from "./users/logout";
 import CreateUser from './users/create';
-
-import Blog from './blog/blog';
-
-import ViewPosts from './posts/view';
-
+import Topics from './topics/manage';
+import Board from './board/view';
 import AdminArea from './admin/admin';
 
-//import { Route } from 'react-router'
 import { Route } from 'react-router-dom';
-//import { browserHistory } from 'react-router' //--- se react-router-dom ovan som nu använder Router, Route
-//import { Route, Switch } from 'react-router-dom';
 
 class App extends Component {
 
@@ -34,25 +25,22 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Layout logged_in={this.props.logged_in} email={this.props.email} role={this.props.role}>
+        <Body logged_in={this.props.logged_in} email={this.props.email} role={this.props.role}>
           <Route exact path="/" render={props => <LoginUser {...this.props} />} />
           <Route path="/logout" render={props => <LogOut loggedout={this.props.loggedout} />} />
           <Route path="/admin" render={props => <AdminArea {...this.props} />} />
-          <Route path="/blog" render={props => <Blog {...this.props} />} />
+          <Route path="/topics" render={props => <Topics {...this.props} />} />
           <Route path="/create" render={props => <CreateUser signup_success={this.props.signup_success} logged_in={this.props.logged_in} />} />
-          <Route path="/posts" render={props => <ViewPosts {...this.props} />} />
-          {/*routes(this.props)*/}
-        </Layout>
+          <Route path="/board" render={props => <Board {...this.props} />} />
+        </Body>
       </BrowserRouter>
     );
   }
 }
 
 function mapStateToProps(state){
-  //console.info(state)
-  //console.info(state.listReducer.blog_list)
   return {
-    blog_list: state.listReducer.blog_list,
+    topic_list: state.listReducer.topic_list,
     list_all: state.listReducer.list_all,
     uid: state.auth.uid,
     email: state.auth.email,

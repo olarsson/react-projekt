@@ -1,21 +1,21 @@
 const listReducer = (
   state = {
-    list_all: [],
-    blog_list: []
+    list_all: {
+      topics: [],
+      posts: []
+    },
+    topic_list: []
   },
   action
 ) => {
-  //console.log(' -- reducer --')
   switch (action.type) {
-    case "LISTPOSTSANDCOMMENTS":
-      //console.info("LISTPOSTSANDCOMMENTS: ", action.payload)
+    case "TOPICSANDCOMMENTSLIST":
       return {
         list_all: action.payload
       };
-    case "BLOGLIST":
-      //console.info("BLOGLIST: ", action.payload)
+    case "TOPICLIST":
       return {
-        blog_list: action.payload
+        topic_list: action.payload
       };      
     default:
       return state;
