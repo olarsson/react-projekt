@@ -11,7 +11,6 @@ router.post("/admin/delete/user", function(req, res) {
     token = req.body.token;
   
     admin.auth().verifyIdToken(token).then(function(decodedToken) {
-      //extra check här? kolla ifall decodedToken.uid har role = admin?
   
       fire.database().ref('users').orderByChild("uid").equalTo(decodedToken.uid).once("value").then(function(snapsrole) {
         snapsrole.forEach(snapshotrole => {
@@ -20,7 +19,6 @@ router.post("/admin/delete/user", function(req, res) {
             
             admin.auth().deleteUser(delete_uid).then(function() {
               ref.orderByChild('uid').equalTo(delete_uid).once('value', snapshot => {
-                //User deleted - sucess
                 let updates = {};
                 snapshot.forEach(child => updates[child.key] = null);
                 ref.update(updates);

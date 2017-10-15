@@ -11,7 +11,6 @@ router.post("/admin/userlist", function(req, res) {
   
     admin.auth().verifyIdToken(token).then(function(decodedToken) {
       var uid = decodedToken.uid;
-      //extra check här? kolla ifall decodedToken.uid har role = admin?
   
       ref.orderByChild("uid").equalTo(uid).once("value").then(function(snapsrole) {
         snapsrole.forEach(snapshotrole => {
