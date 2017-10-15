@@ -1,16 +1,9 @@
  • användare redigera inlägg
  • admin redigera inlägg
  
-  * hantera error responses i json
   * ta bort default uppgifter i create och login.js
-  * setstate i create.js?
   * allt språk till engelska
-  * spara login i en session variabel?
-  * exporta routes i index.js
   * fixa read/write regler i firebase
-  * verifiera input från forms
 
-
-
-admin sida
- - tryck delete, disable fält tills resultat
+    * exporta routes i index.js
+    * spara login i en session variabel?

@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var router = express.Router();
-var index = require('./routes/index');
+//var index = require('./routes/index');
 var app = express();
 
 import * as admin from "firebase-admin";
@@ -35,13 +35,9 @@ app.use(require('./routes/admin/delete/comment.js'));
 app.use(require('./routes/admin/delete/topic_and_comments.js'));
 app.use(require('./routes/admin/userlist.js'));
 app.use(require('./routes/user/create_user.js'));
-
 app.use(require('./routes/topic/create.js'));
-
 app.use(require('./routes/board/view.js'));
 app.use(require('./routes/board/make_comment.js'));
-
-//app.use(require('./routes/index.js'));
 
 
 // catch 404 and forward to error handler

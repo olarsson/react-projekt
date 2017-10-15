@@ -21,28 +21,39 @@ class LoginUser extends Component {
 
     let email = this.state.email,
     password = this.state.password,
+    btn = document.querySelector('.main input[type="submit"]'),
     that = this;
 
-    fire.auth().signInWithEmailAndPassword(email, password).then(user => {
-      fire.database().ref("users").orderByChild("uid").equalTo(user.uid).once("value").then(function(snaps) {
-        snaps.forEach(snapshot => {
-          fire.auth().currentUser.getIdToken(true).then(function(idToken) {
-            that.props.loggedin({
-              uid: user.uid,
-              email: user.email,
-              role: snapshot.val().role,
-              token: idToken
-            });
-          }).catch(function(error) {
-            that.setState({status_msg: error.message});
-          });         
+    if (!btn.disabled) {
+
+      btn.disabled = true;
+
+      fire.auth().signInWithEmailAndPassword(email, password).then(user => {
+        fire.database().ref("users").orderByChild("uid").equalTo(user.uid).once("value").then(function(snaps) {
+          snaps.forEach(snapshot => {
+            fire.auth().currentUser.getIdToken(true).then(function(idToken) {
+              that.props.loggedin({
+                uid: user.uid,
+                email: user.email,
+                role: snapshot.val().role,
+                token: idToken
+              });
+              btn.disabled = false;
+            }).catch(function(error) {
+              btn.disabled = false;
+              that.setState({status_msg: error.message});
+            });         
+          });
+        }).catch(function(error) {
+          btn.disabled = false;
+          that.setState({status_msg: error.message});
         });
       }).catch(function(error) {
+        btn.disabled = false;
         that.setState({status_msg: error.message});
       });
-    }).catch(function(error) {
-      that.setState({status_msg: error.message});
-    });
+
+    }
 
   }
  

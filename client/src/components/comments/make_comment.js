@@ -35,8 +35,12 @@ class MakeComment extends Component {
       .then(response => response.json())
       .then(json => {
         this.props.getBoard(this);
-        if (json.message === "success") {
-          this.setState({error_post: null})
+        if (json.result === "success") {
+          this.setState({
+            error_post: null,
+            message: ''
+          })
+          $('.topic .makecomment').removeClass('active');
         } else {
           this.setState({error_post: json.message})
         }

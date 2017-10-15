@@ -6,7 +6,9 @@ export const loggedin = (payload) => dispatch => {
 };
 
 export const loggedout = () => dispatch => {
-  dispatch({ type: "LOGGED_OUT" });
+  dispatch({
+    type: "LOGGED_OUT"
+  });
 };
 
 export const signup_success = (payload) => dispatch => {
@@ -16,16 +18,16 @@ export const signup_success = (payload) => dispatch => {
   });
 };
 
-export const topiclist = (topic_list) => dispatch => {
+export const topiclist = (payload) => dispatch => {
   dispatch({
     type: "TOPICLIST",
-    payload: topic_list
+    payload: payload
   });
 };
 
-export const boardlist = (list_all) => dispatch => {
+export const boardlist = (payload) => dispatch => {
   dispatch({
     type: "TOPICSANDCOMMENTSLIST",
-    payload: list_all
+    payload: payload
   });
 };
