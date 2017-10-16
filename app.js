@@ -30,11 +30,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use('/', index);
-app.use('/',
+/*app.use('/',
   router.get("/", function(req, res, next) {
     res.render("index", { title: "Express" });
   })
-);
+);*/
 
 app.use(require('./routes/admin/delete/user.js'));
 app.use(require('./routes/admin/delete/comment.js'));
