@@ -1,7 +1,9 @@
 var express = require("express");
 var router = express.Router();
-import * as admin from "firebase-admin";
-import fire from "../../../client/src/config/fire";
+var admin = require('firebase-admin');
+//import * as admin from "firebase-admin";
+var fire = require('../../../client/src/config/fire');
+//import fire from "../../../client/src/config/fire";
 
 //ta bort topic och alla kommenterar till det
 router.post("/admin/delete/topic_and_comments", function(req, res) {

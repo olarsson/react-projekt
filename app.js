@@ -8,7 +8,9 @@ var router = express.Router();
 //var index = require('./routes/index');
 var app = express();
 
-import * as admin from "firebase-admin";
+//import * as admin from "firebase-admin";
+
+var admin = require('firebase-admin');
 
 var serviceAccount = require("./project-test-4585e73d8343.json");
 admin.initializeApp({

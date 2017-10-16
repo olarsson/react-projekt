@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-require("babel-register");
+//require("babel-register");
 
 var app = require('../app');
 var debug = require('debug')('react-backend:server');
@@ -17,8 +17,10 @@ var http = require('http');
 /**
  * Get port from environment and store in Express.
  */
-console.log(process.env.PORT)
-var port = normalizePort(process.env.PORT || '3001');
+let porty = process.env.PORT;
+if (!porty) porty = '3001';
+//console.log(porty)
+var port = normalizePort(porty || '3001');
 app.set('port', port);
 
 /**
