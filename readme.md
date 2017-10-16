@@ -1,4 +1,4 @@
-# React - Messageboard App
+# Node.js + React - Messageboard App
 
 ## Om projektet
 Projektets mål var att skapa en Social App i node.js på backenden med React i frontenden. Mer exakt är det en typ av skyddad messageboard där man kan läsa och kommentera på inlägg. Exempel för användningsområde kan vara om man vill informera kunder om nyheter men endast vill att man själv ska kunna skapa en nyhet.
