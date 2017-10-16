@@ -61,7 +61,7 @@ class Topics extends Component {
           return (
             <div className="topic" key={i}>
               <div className="text">
-                <p>{post.text}</p>
+                <p>{decodeURI(post.text)}</p>
                 <div className="date">{(new Date(post.created).toLocaleString())}</div>
                 <div className="by">{post.id}</div>
                 <button type="submit" onClick={(e, that, topicid) => this.deleteTopicAndComments(e, this, post.id)}>Delete</button>

@@ -91,7 +91,7 @@ class Board extends Component {
           return (
             <div className="topic" key={i}>
               <div className="text">
-                <p>{topic.text}</p>
+                <p>{decodeURI(topic.text)}</p>
                 <div className="date">{(new Date(topic.created).toLocaleString())}</div>
                 <div className="by">{topic.postedby}</div>                
               </div>
@@ -101,7 +101,7 @@ class Board extends Component {
                     return (
                       <div className="comment" key={ii}>
                         <div className="text">
-                          <p>{post.text}</p>
+                          <p>{decodeURI(post.text)}</p>
                           <div className="date">{(new Date(post.created).toLocaleString())}</div>
                           <div className="by">{post.postedby}</div>
                           {(post.postedby === this.props.uid || this.props.role === "admin" ? <button onClick={() => this.deleteComment(this, this.props.token, post.id, post.postedby)}></button> : '')}

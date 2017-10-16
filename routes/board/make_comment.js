@@ -19,7 +19,7 @@ router.post("/board/make_comment", function(req, res) {
     admin.auth().verifyIdToken(token).then(function(decodedToken) {
       fire.database().ref("posts").push({
         postedby: decodedToken.uid,
-        text: message,
+        text: encodeURI(message),
         created: new Date().getTime(),
         reference: reference
       })
