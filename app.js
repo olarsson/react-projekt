@@ -46,11 +46,11 @@ app.use(require('./routes/board/view.js'));
 app.use(require('./routes/board/make_comment.js'));
 
 // Priority serve any static files.
-app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+app.use(express.static(path.resolve(__dirname, './react-ui/build')));
 
  // All remaining requests return the React app, so it can handle routing.
 app.get('*', function(request, response) {
-  response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
+  response.sendFile(path.resolve(__dirname, './react-ui/build', 'index.html'));
 });
 
 
