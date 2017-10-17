@@ -1,5 +1,5 @@
 import * as admin from "firebase-admin";
-import fire from "../../client/src/config/fire";
+import fire from "../../public/src/config/fire";
 
 var serviceAccount = require("../project-test-4585e73d8343.json");
 admin.initializeApp({

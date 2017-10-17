@@ -2,8 +2,8 @@ var express = require("express");
 var router = express.Router();
 var admin = require('firebase-admin');
 //import * as admin from "firebase-admin";
-var fire = require('../../client/src/config/fire');
-//import fire from "../../client/src/config/fire";
+var fire = require('../../public/src/config/fire');
+//import fire from "../../public/src/config/fire";
 
 //få lista med användare
 router.post("/admin/userlist", function(req, res) {

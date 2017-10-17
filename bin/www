@@ -36,7 +36,7 @@ var server = http.createServer(app);
 
  // All remaining requests return the React app, so it can handle routing.
 /*app.get('*', function(request, response) {
-  response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+  response.sendFile(path.resolve(__dirname, '../public/build', 'index.html'));
 });*/
 
 server.listen(port);
