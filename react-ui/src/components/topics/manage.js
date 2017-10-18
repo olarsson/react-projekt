@@ -34,20 +34,50 @@ class Topics extends Component {
   }
 
   getTopicsAndComments(that) {
-    fire.database().ref("topics").orderByChild("created").once("value").then(function(snaps) {
-      let x = [],
+
+    let i, users = [];
+    
+    let uidToEmail = function(uid) {
+      let email = null;
+      users.forEach(item => {
+        if (item.uid === uid) email = item.email;
+      })
+      return email;
+    }
+
+    fire.database().ref("users").orderByChild("uid").once("value").then(function(snaps) {
+      
       i = 0;
       snaps.forEach(snapshot => {
         i++;
-        x.push({
-          id: snapshot.key,
-          created: snapshot.val().created,
-          text: snapshot.val().text,
+        users.push({
+          uid: snapshot.val().uid,
+          email: snapshot.val().email,
           key: i
         });
       });
-      that.props.topiclist(x)
-    })
+
+    }).then(() => {
+
+      fire.database().ref("topics").orderByChild("created").once("value").then(function(snaps) {
+        let x = [],
+        i = 0;
+        snaps.forEach(snapshot => {
+          i++;
+          x.push({
+            id: snapshot.key,
+            email: uidToEmail(snapshot.val().postedby),
+            created: snapshot.val().created,
+            text: snapshot.val().text,
+            key: i
+          });
+        });
+        that.props.topiclist(x)
+      })
+
+    })    
+
+  
   }
 
   none(e) {
@@ -63,7 +93,7 @@ class Topics extends Component {
               <div className="text">
                 <p>{decodeURI(post.text)}</p>
                 <div className="date">{(new Date(post.created).toLocaleString())}</div>
-                <div className="by">{post.id}</div>
+                <div className="by">{post.email ? post.email : 'User deleted'}</div>
                 <button type="submit" onClick={(e, that, topicid) => this.deleteTopicAndComments(e, this, post.id)}>Delete</button>
               </div>
             </div>

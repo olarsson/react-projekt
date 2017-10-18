@@ -95,6 +95,17 @@ footer p {
   color: #4f4f4f;
 }
 
+select {
+  margin-left: 0;
+  background: #000;
+  border: 0;
+  color: #fff;
+  font-size: 0.80em;
+  padding: 0.25em 0.5em;
+  text-transform: uppercase;
+  font-family: 'Slabo 27px', serif;
+}
+
 /********************************/
 /* main
 /********************************/
@@ -231,6 +242,7 @@ footer p {
 }
 
 .topic .text p {
+  white-space: pre;
   margin: 0;
 }
 

@@ -72,16 +72,8 @@ class AdminUsers extends Component {
   }
 
   changeRole(e, uid, that) {
-    console.info(e.target.value)
-    console.info(uid)
-    //console.info(that)
-    //this.setState({selectedrole: role});
-    //let btn = $(e.target).find('button')[0],
-    //form = e.target,
-    //delete_uid = $(btn).attr('data-uid'),
-    let token = that.props.token;
 
-    console.info(token)
+    let token = that.props.token;
   
     if (!$('select').attr('disabled')) {
       
@@ -101,16 +93,11 @@ class AdminUsers extends Component {
       })
       .then(response => response.json())
       .then(json => {
-        console.info(json)
         $('select').removeAttr('disabled');
       }).catch((err) => {
-        console.info(err)
         $('select').removeAttr('disabled');
       })
     }
-
-
-
 
   }
 
@@ -139,7 +126,7 @@ class AdminUsers extends Component {
                 <div>
                   <form onSubmit={(e, that) => deleteUser(e, this)}>
                     <input type="hidden" readOnly value={user.uid_users} />
-                    {user.role === 'user' ? <button type="submit" value="delete" data-uid={user.uid}>Delete user</button> : ''}
+                    <button type="submit" value="delete" data-uid={user.uid}>Delete user</button>
                   </form>
                 </div>
               </div>;

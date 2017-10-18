@@ -93,7 +93,7 @@ class Board extends Component {
               <div className="text">
                 <p>{decodeURI(topic.text)}</p>
                 <div className="date">{(new Date(topic.created).toLocaleString())}</div>
-                <div className="by">{topic.postedby}</div>                
+                <div className="by">{topic.email ? topic.email : 'User deleted'}</div>
               </div>
               {
                 this.props.list_all.posts.map((post, ii) => {
@@ -103,7 +103,7 @@ class Board extends Component {
                         <div className="text">
                           <p>{decodeURI(post.text)}</p>
                           <div className="date">{(new Date(post.created).toLocaleString())}</div>
-                          <div className="by">{post.postedby}</div>
+                          <div className="by">{post.email ? post.email : 'User deleted'}</div>
                           {(post.postedby === this.props.uid || this.props.role === "admin" ? <button onClick={() => this.deleteComment(this, this.props.token, post.id, post.postedby)}></button> : '')}
                         </div>
                       </div>
