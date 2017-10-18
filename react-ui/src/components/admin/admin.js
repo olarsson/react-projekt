@@ -71,6 +71,49 @@ class AdminUsers extends Component {
     getUserList(this)
   }
 
+  changeRole(e, uid, that) {
+    console.info(e.target.value)
+    console.info(uid)
+    //console.info(that)
+    //this.setState({selectedrole: role});
+    //let btn = $(e.target).find('button')[0],
+    //form = e.target,
+    //delete_uid = $(btn).attr('data-uid'),
+    let token = that.props.token;
+
+    console.info(token)
+  
+    if (!$('select').attr('disabled')) {
+      
+      $('select').attr('disabled', 'disabled');
+
+      fetch("/admin/change/role", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },    
+        body: JSON.stringify({
+          'change_uid' : uid,
+          'token' : token,
+          'role' : e.target.value
+        })
+      })
+      .then(response => response.json())
+      .then(json => {
+        console.info(json)
+        $('select').removeAttr('disabled');
+      }).catch((err) => {
+        console.info(err)
+        $('select').removeAttr('disabled');
+      })
+    }
+
+
+
+
+  }
+
   render() {
     let that = this;
     return this.props.logged_in ?
@@ -83,21 +126,23 @@ class AdminUsers extends Component {
           <div className="theader">
             <div>Role</div>
             <div>Email</div>
-            <div />
           </div>
           {this.state.users.map(function(user, i) {
-            return <form key={i} onSubmit={(e, that) => deleteUser(e, this)}>
-                <input type="hidden" readOnly value={user.uid_users} />
-                <div>{user.role}</div>
+            return <div className="row" key={i}>
+                <div>
+                  <select onChange={(e, uid, that) => this.changeRole(e, user.uid, this)}>
+                    {(user.role === 'user' ? <option defaultValue="user">user</option> : <option defaultValue="admin">admin</option>)}
+                    {(user.role === 'admin' ? <option defaultValue="user">user</option> : <option defaultValue="admin">admin</option>)}
+                  </select>                  
+                </div>
                 <div>{user.email}</div>
                 <div>
-                  {user.role === 'user' ? 
-                  <button type="submit" value="delete" data-uid={user.uid}>
-                    Delete user
-                  </button>
-                  : ''}
+                  <form onSubmit={(e, that) => deleteUser(e, this)}>
+                    <input type="hidden" readOnly value={user.uid_users} />
+                    {user.role === 'user' ? <button type="submit" value="delete" data-uid={user.uid}>Delete user</button> : ''}
+                  </form>
                 </div>
-              </form>;
+              </div>;
           }, that)}
           <br />
         </div>

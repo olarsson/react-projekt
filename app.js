@@ -5,11 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var router = express.Router();
-//var index = require('./routes/index');
 var app = express();
-
-//import * as admin from "firebase-admin";
-
 var admin = require('firebase-admin');
 
 var serviceAccount = require("./project-test-4585e73d8343.json");
@@ -29,13 +25,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use('/', index);
-/*app.use('/',
-  router.get("/", function(req, res, next) {
-    res.render("index", { title: "Express" });
-  })
-);*/
 
+app.use(require('./routes/admin/change/role.js'));
 app.use(require('./routes/admin/delete/user.js'));
 app.use(require('./routes/admin/delete/comment.js'));
 app.use(require('./routes/admin/delete/topic_and_comments.js'));
@@ -52,7 +43,6 @@ app.use(express.static(path.resolve(__dirname, './react-ui/build')));
 app.get('*', function(request, response) {
   response.sendFile(path.resolve(__dirname, './react-ui/build', 'index.html'));
 });
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

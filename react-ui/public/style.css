@@ -172,12 +172,21 @@ footer p {
   display: inline-block;
 }
 
+.usertable .row {
+  min-width: 150px;
+}
+
+.usertable .row div {
+  display: inline-block;
+  min-width: 150px;
+}
+
 .usertable .theader {
   border-bottom: 1px solid #c2c2c2;
 }
 
 .usertable .theader div {
-  min-width: 130px;
+  min-width: 150px;
   display: inline-block;
   font-weight: bold;
 }
@@ -187,7 +196,7 @@ footer p {
 }
 
 .usertable form div {
-  min-width: 130px;
+  min-width: 150px;
   display: inline-block;
 }
 

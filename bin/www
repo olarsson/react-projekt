@@ -3,24 +3,14 @@
 /**
  * Module dependencies.
  */
-//require("babel-register");
 
 var app = require('../app');
 var debug = require('debug')('react-backend:server');
 var http = require('http');
 
-
-//let renderReact = require('../routes/server_get.js');
-//renderReact(app);
-
-
 /**
  * Get port from environment and store in Express.
  */
-//let porty = process.env.PORT;
-//if (!porty) porty = '3001';
-//console.log(porty)
-//var port = normalizePort(porty || '3001');
 var port = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
 
@@ -33,7 +23,6 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-
 
 server.listen(port);
 server.on('error', onError);
