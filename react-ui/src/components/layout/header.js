@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Header = (props) => {
   return (
     <header>
-      <h1>Messageboard expirement</h1>
+      <h1><a href="/">Messageboard expirement</a></h1>
       <p>{props.logged_in ? `Logged in as "${props.role} / ${props.email}"` : 'Not logged in.'}</p>
       <ul>
         {!props.logged_in ? '' : <li><Link to="/board">Messageboard</Link></li> }
