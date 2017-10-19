@@ -143,6 +143,11 @@ select:disabled {
   margin: 0.5em 0;
 }
 
+.main input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #000 inset;
+  -webkit-text-fill-color: #fff;
+}
+
 .main input {
   background: #000;
   border: 0;
@@ -192,6 +197,22 @@ select:disabled {
   color: #fff;
 }
 
+
+.formerror {
+  margin-top: 1em;
+  color: #d00000;
+  font-size: 0.85em;
+}
+
+.formerror span:nth-of-type(1) {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-right: 0.4em;
+}
+
+.formerror span:nth-of-type(2) {
+  font-weight: normal;
+}
 
 
 /********************************/

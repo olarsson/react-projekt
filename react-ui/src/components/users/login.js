@@ -77,12 +77,12 @@ class LoginUser extends Component {
     : 
       <div className="main">
         <h3>Login</h3>
-        { (this.state.status_msg !== null ? 'Error: ' + this.state.status_msg : '') }
         <form onSubmit={this.signin_user.bind(this)}>
           <input type="text" name="email" placeholder="Email" onChange={this.handleEmailChange.bind(this)} /><br/>
           <input type="password" name="password" placeholder="Password" onChange={this.handlePasswordChange.bind(this)}/><br/>
           <input type="submit" />
         </form>
+        { (this.state.status_msg !== null ? <div className="formerror"><span>Error</span><span>{this.state.status_msg}</span></div> : '') }
       </div>
     ;
 
