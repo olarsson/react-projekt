@@ -8,7 +8,7 @@ var router = express.Router();
 var app = express();
 var admin = require('firebase-admin');
 
-var serviceAccount = require("./project-test-4585e73d8343.json");
+var serviceAccount = require("./config/project-test-4585e73d8343.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://<DATABASE_NAME>.firebaseio.com"
