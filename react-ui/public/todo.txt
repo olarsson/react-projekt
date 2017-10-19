@@ -1,9 +1,0 @@
-  * ändra vem som är admin
-  * ta bort default uppgifter i create och login.js
-  * allt språk till engelska
-  * fixa read/write regler i firebase
-  * publicera online
-  * skapa readme
-
-    * exporta routes i index.js
-    * spara login i en session variabel?
