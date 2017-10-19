@@ -4,8 +4,8 @@ import fire from "../../config/fire";
 class CreateUser extends Component {
 
   state = {
-    email: "aa@aa.com",
-    password: "passaa",
+    email: "",
+    password: "",
     role: "user",
     uid: null,
     status_msg: null
@@ -18,7 +18,7 @@ class CreateUser extends Component {
     var that = this,
     email = this.state.email,
     password = this.state.password;
-    
+
     fire.auth().createUserWithEmailAndPassword(email, password).then(user => {
       
       fetch("/admin_create_user", {
@@ -56,6 +56,8 @@ class CreateUser extends Component {
       that.setState({status_msg: error.message});
     });
 
+
+
   }
  
   handleEmailChange(e) {
@@ -77,8 +79,8 @@ class CreateUser extends Component {
         <h3>Create account</h3>
         { (this.state.status_msg !== null ? 'Error: ' + this.state.status_msg : '') }
         <form onSubmit={this.create_account.bind(this)}>
-          <input type="text" name="email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange.bind(this)} /><br/>
-          <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)}/><br/>
+          <input type="text" name="email" placeholder="Email" onChange={this.handleEmailChange.bind(this)} /><br/>
+          <input type="password" name="password" placeholder="Password" onChange={this.handlePasswordChange.bind(this)}/><br/>
           <input type="submit" />
         </form>
       </div>

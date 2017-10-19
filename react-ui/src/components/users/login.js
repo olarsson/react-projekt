@@ -8,14 +8,16 @@ class LoginUser extends Component {
   }
 
   state = {
-    email: "aa@aa.com",
-    password: "passaa",
+    email: "",
+    password: "",
     role: "user",    
     status_msg: null,
     logged_in: false
   };
 
   signin_user(e) {
+
+    this.setState({status_msg: null})
 
     e.preventDefault();
 
@@ -77,8 +79,8 @@ class LoginUser extends Component {
         <h3>Login</h3>
         { (this.state.status_msg !== null ? 'Error: ' + this.state.status_msg : '') }
         <form onSubmit={this.signin_user.bind(this)}>
-          <input type="text" name="email" placeholder={this.state.email} onChange={this.handleEmailChange.bind(this)} /><br/>
-          <input type="password" name="password" placeholder={this.state.password} onChange={this.handlePasswordChange.bind(this)}/><br/>
+          <input type="text" name="email" placeholder="Email" onChange={this.handleEmailChange.bind(this)} /><br/>
+          <input type="password" name="password" placeholder="Password" onChange={this.handlePasswordChange.bind(this)}/><br/>
           <input type="submit" />
         </form>
       </div>

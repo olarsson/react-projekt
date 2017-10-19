@@ -58,19 +58,8 @@ class Board extends Component {
         if (json.result === "success") {
           this.setState({error: null})
           this.getBoard(this);
-        } else {
-        /*  this.setState({
-            error: json.message,
-            error_mode: 2
-          })*/
         }
       })
-      /*.catch(error => {
-        this.setState({
-          error: "Fetch request failed",
-          error_mode: 2
-        })
-      })*/
 
     }
   

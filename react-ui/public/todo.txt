@@ -1,6 +1,3 @@
- • användare redigera inlägg
- • admin redigera inlägg
- 
   * ändra vem som är admin
   * ta bort default uppgifter i create och login.js
   * allt språk till engelska

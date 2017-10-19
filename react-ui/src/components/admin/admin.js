@@ -35,7 +35,7 @@ function deleteUser(e, that) {
   e.preventDefault();
 
   let btn = $(e.target).find('button')[0],
-  form = e.target,
+  $row = $(e.target).parent().parent(),
   delete_uid = $(btn).attr('data-uid'),
   token = that.props.token;
 
@@ -54,7 +54,7 @@ function deleteUser(e, that) {
     })
     .then(response => response.json())
     .then(json => {
-      $(form).remove();
+      $row.remove();
     });
   }
 

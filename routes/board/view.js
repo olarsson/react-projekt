@@ -1,9 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var admin = require('firebase-admin');
-//import * as admin from "firebase-admin";
 var fire = require('../../react-ui/src/config/fire');
-//import fire from "../../react-ui/src/config/fire";
 
 //hämta alla topics och kommentarer
 router.post("/board/view", function(req, res) {
@@ -42,7 +40,7 @@ router.post("/board/view", function(req, res) {
           id: snapshot.key,
           email: uidToEmail(snapshot.val().postedby),
           postedby: snapshot.val().postedby,
-          created: Date(snapshot.val().created), 
+          created: snapshot.val().created, 
           text: snapshot.val().text,
           key: i
         });
@@ -56,7 +54,7 @@ router.post("/board/view", function(req, res) {
             id: snapshot.key,
             email: uidToEmail(snapshot.val().postedby),
             postedby: snapshot.val().postedby,
-            created: Date(snapshot.val().created),
+            created: snapshot.val().created,
             text: snapshot.val().text,
             reference: snapshot.val().reference,
             key: i

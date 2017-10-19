@@ -106,6 +106,12 @@ select {
   font-family: 'Slabo 27px', serif;
 }
 
+select:disabled {
+  color: #929292;
+  cursor: not-allowed;
+  background: #4f4f4f;
+}
+
 /********************************/
 /* main
 /********************************/

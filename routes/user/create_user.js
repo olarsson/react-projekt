@@ -1,9 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var admin = require('firebase-admin');
-//import * as admin from "firebase-admin";
 var fire = require('../../react-ui/src/config/fire');
-//import fire from "../../react-ui/src/config/fire";
 
 //skapa ny användare
 router.post("/admin_create_user", function(req, res) {

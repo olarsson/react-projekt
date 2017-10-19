@@ -62,8 +62,7 @@ class MakeComment extends Component {
     return (
       <div className="makecomment">
         <h4>Make post</h4>
-        {/*console.info(this.state.error_post)*/}
-        {this.state.error_post !== null ? <p>Error2: {this.state.error_post}</p> : ''}
+        {this.state.error_post !== null ? <p>Error: {this.state.error_post}</p> : ''}
         <form onSubmit={this.make_comment.bind(this)}>
           <textarea name="message" placeholder="Message" value={this.state.message} onChange={this.handleMessage.bind(this)}></textarea>
           <input type="submit" />

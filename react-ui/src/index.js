@@ -12,8 +12,8 @@ import { Provider } from "react-redux";
 const store = createStore(combineReducers({
     auth,
     listReducer
-  }),
-  /* preloadedState, */ window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(applyMiddleware(reduxThunk))
+  })//, /* preloadedState, */ window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(applyMiddleware(reduxThunk))
+  ,applyMiddleware(reduxThunk)
 );
 
 ReactDOM.render(

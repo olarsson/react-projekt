@@ -1,9 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var admin = require('firebase-admin');
-//import * as admin from "firebase-admin";
 var fire = require('../../react-ui/src/config/fire');
-//import fire from "../../react-ui/src/config/fire";
 
 //skapa kommentar
 router.post("/board/make_comment", function(req, res) {
@@ -23,6 +21,7 @@ router.post("/board/make_comment", function(req, res) {
         postedby: decodedToken.uid,
         text: encodeURI(message),
         created: new Date().getTime(),
+        //create: firebase.ServerValue.TIMESTAMP,
         reference: reference
       })
       .then(() => res.json({'result':'success'}))
